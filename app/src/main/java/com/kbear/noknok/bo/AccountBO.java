@@ -12,4 +12,8 @@ public final class AccountBO {
     public static void createAccount(final String username, final String password, final String verifyPassword, final AccountCompletionHandler completionHandler) {
         AccountService.createAccount(username, password, verifyPassword, completionHandler);
     }
+
+    public static void login(final String username, final String password, final AccountCompletionHandler completionHandler) {
+        AccountService.login(username, password, completionHandler);
+    }
 }

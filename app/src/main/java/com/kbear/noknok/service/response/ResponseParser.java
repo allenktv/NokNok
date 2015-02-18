@@ -28,14 +28,14 @@ public final class ResponseParser {
 
         @Override
         public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
-            String value = responseHandler.stringResponseParser.parse(statusCode, headers, response);
-            if (value != null) {
-                if (completionHandler != null) {
-                    ((StringCompletionHandler)completionHandler).onSuccess(value);
+            if (completionHandler != null) {
+                String value = responseHandler.stringResponseParser.parse(statusCode, headers, response);
+                if (value != null) {
+                    ((StringCompletionHandler) completionHandler).onSuccess(value);
+                } else {
+                    CustomError customError = responseHandler.customErrorParser.parse(statusCode, headers, response);
+                    handleNoResult(customError);
                 }
-            } else {
-                CustomError customError = responseHandler.customErrorParser.parse(statusCode, headers, response);
-                handleNoResult(customError);
             }
         }
     }
@@ -47,8 +47,8 @@ public final class ResponseParser {
 
         @Override
         public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
-            boolean success = responseHandler.booleanResponseParser.parse(statusCode, headers, response);
             if (completionHandler != null) {
+                boolean success = responseHandler.booleanResponseParser.parse(statusCode, headers, response);
                 if (success) {
                     ((BooleanCompletionHandler)completionHandler).onSuccess(true);
                 } else {
@@ -70,8 +70,8 @@ public final class ResponseParser {
 
         @Override
         public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
-            Account account = responseHandler.accountResponseParser.parse(statusCode, headers, response);
             if (completionHandler != null) {
+                Account account = responseHandler.accountResponseParser.parse(statusCode, headers, response);
                 if (account != null) {
                     ((AccountCompletionHandler)completionHandler).onSuccess(account);
                 } else {

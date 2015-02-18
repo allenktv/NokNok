@@ -47,7 +47,17 @@ public class LauncherActivity extends ActionBarActivity {
         login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                AccountBO.login(username.getText().toString(), password.getText().toString(), new AccountCompletionHandler() {
+                    @Override
+                    public void onSuccess(Account account) {
+                        Toast.makeText(LauncherActivity.this, "id: " + account.getId() + ", username: " + account.getUsername(), Toast.LENGTH_SHORT).show();
+                    }
 
+                    @Override
+                    public void onFailure(CustomError error) {
+                        Toast.makeText(LauncherActivity.this, error.getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                });
             }
         });
     }

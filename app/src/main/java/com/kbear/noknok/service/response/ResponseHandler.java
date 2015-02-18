@@ -81,9 +81,7 @@ public final class ResponseHandler {
         public CustomError parse(int statusCode, Header[] headers, JSONObject response) {
             if (statusCode == HttpStatus.SC_OK) {
                 try {
-                    //TODO
-                    CustomError customError = new CustomError(new Exception(response.getString("error")));
-                    return customError;
+                    return new Gson().fromJson(response.getString("error"), CustomError.class);
                 } catch (JSONException ex) {
                     return null;
                 }
