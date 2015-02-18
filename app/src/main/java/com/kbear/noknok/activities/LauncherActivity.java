@@ -9,6 +9,9 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import com.kbear.noknok.R;
+import com.kbear.noknok.bo.AccountBO;
+import com.kbear.noknok.dtos.CustomError;
+import com.kbear.noknok.service.completionhandlers.BooleanCompletionHandler;
 
 
 public class LauncherActivity extends ActionBarActivity {
@@ -17,13 +20,23 @@ public class LauncherActivity extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_launcher);
-        EditText username = (EditText)findViewById(R.id.username);
-        EditText password = (EditText)findViewById(R.id.password);
-        Button create = (Button) findViewById(R.id.create_account);
+        final EditText username = (EditText)findViewById(R.id.username);
+        final EditText password = (EditText)findViewById(R.id.password);
+        final Button create = (Button) findViewById(R.id.create_account);
         create.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                AccountBO.createAccount(username.getText().toString(), password.getText().toString(), new BooleanCompletionHandler() {
+                    @Override
+                    public void onSuccess(boolean success) {
 
+                    }
+
+                    @Override
+                    public void onFailure(CustomError error) {
+
+                    }
+                });
             }
         });
         Button login = (Button) findViewById(R.id.login);
