@@ -8,7 +8,7 @@ import com.kbear.noknok.service.completionhandlers.BooleanCompletionHandler;
  */
 public final class AccountBO {
     
-    public static void createAccount(final String username, final String password, final BooleanCompletionHandler completionHandler) {
-        AccountService.createAccount(username, password, completionHandler);
+    public static void createAccount(final String username, final String password, final String verifyPassword, final BooleanCompletionHandler completionHandler) {
+        AccountService.createAccount(username, password, verifyPassword, completionHandler);
     }
 }

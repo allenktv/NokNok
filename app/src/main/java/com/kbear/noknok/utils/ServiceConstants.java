@@ -15,7 +15,8 @@ public final class ServiceConstants {
     public static final String ACCOUNTS_CREATE = ACCOUNTS + "create/";
 
     public static final String REQUEST_PARAMETER_ID = "id";
-    public static final String REQUEST_PARAMETER_USERNAME = "userName";
+    public static final String REQUEST_PARAMETER_USERNAME = "username";
     public static final String REQUEST_PARAMETER_PASSWORD = "password";
+    public static final String REQUEST_PARAMETER_VERIFY_PASSWORD = "verify";
     public static final String REQUEST_PARAMETER_GENDER = "gender";
 }

@@ -7,6 +7,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.kbear.noknok.R;
 import com.kbear.noknok.bo.AccountBO;
@@ -22,19 +23,20 @@ public class LauncherActivity extends ActionBarActivity {
         setContentView(R.layout.activity_launcher);
         final EditText username = (EditText)findViewById(R.id.username);
         final EditText password = (EditText)findViewById(R.id.password);
+        final EditText verifyPassword = (EditText)findViewById(R.id.verify_password);
         final Button create = (Button) findViewById(R.id.create_account);
         create.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                AccountBO.createAccount(username.getText().toString(), password.getText().toString(), new BooleanCompletionHandler() {
+                AccountBO.createAccount(username.getText().toString(), password.getText().toString(), verifyPassword.getText().toString(), new BooleanCompletionHandler() {
                     @Override
                     public void onSuccess(boolean success) {
-
+                        Toast.makeText(LauncherActivity.this, "success", Toast.LENGTH_SHORT).show();
                     }
 
                     @Override
                     public void onFailure(CustomError error) {
-
+                        Toast.makeText(LauncherActivity.this, error.getMessage(), Toast.LENGTH_SHORT).show();
                     }
                 });
             }

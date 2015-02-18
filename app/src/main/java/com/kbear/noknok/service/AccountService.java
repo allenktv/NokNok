@@ -11,11 +11,12 @@ import com.loopj.android.http.RequestParams;
  */
 public final class AccountService {
 
-    public static void createAccount(String username, String password, BooleanCompletionHandler completionHandler) {
+    public static void createAccount(String username, String password, String verifyPassword, BooleanCompletionHandler completionHandler) {
         String url = ServiceConstants.BASE_SERVER_URL + ServiceConstants.ACCOUNTS_CREATE;
         RequestParams params = new RequestParams(
             ServiceConstants.REQUEST_PARAMETER_USERNAME, username,
-            ServiceConstants.REQUEST_PARAMETER_PASSWORD, password
+            ServiceConstants.REQUEST_PARAMETER_PASSWORD, password,
+            ServiceConstants.REQUEST_PARAMETER_VERIFY_PASSWORD, verifyPassword
         );
         ResponseParser.BooleanJsonHttpResponseHandler booleanJsonHttpResponseHandler = new ResponseParser.BooleanJsonHttpResponseHandler(completionHandler);
         NetworkManager.post(url, params, booleanJsonHttpResponseHandler);
