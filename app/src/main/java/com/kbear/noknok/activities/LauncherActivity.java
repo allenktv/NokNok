@@ -11,7 +11,9 @@ import android.widget.Toast;
 
 import com.kbear.noknok.R;
 import com.kbear.noknok.bo.AccountBO;
+import com.kbear.noknok.dtos.Account;
 import com.kbear.noknok.dtos.CustomError;
+import com.kbear.noknok.service.completionhandlers.AccountCompletionHandler;
 import com.kbear.noknok.service.completionhandlers.BooleanCompletionHandler;
 
 
@@ -28,10 +30,10 @@ public class LauncherActivity extends ActionBarActivity {
         create.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                AccountBO.createAccount(username.getText().toString(), password.getText().toString(), verifyPassword.getText().toString(), new BooleanCompletionHandler() {
+                AccountBO.createAccount(username.getText().toString(), password.getText().toString(), verifyPassword.getText().toString(), new AccountCompletionHandler() {
                     @Override
-                    public void onSuccess(boolean success) {
-                        Toast.makeText(LauncherActivity.this, "success", Toast.LENGTH_SHORT).show();
+                    public void onSuccess(Account account) {
+                        Toast.makeText(LauncherActivity.this, "id: " + account.getId() + ", username: " + account.getUsername(), Toast.LENGTH_SHORT).show();
                     }
 
                     @Override

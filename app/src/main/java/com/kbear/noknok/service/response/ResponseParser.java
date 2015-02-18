@@ -1,7 +1,9 @@
 package com.kbear.noknok.service.response;
 
+import com.kbear.noknok.dtos.Account;
 import com.kbear.noknok.dtos.CustomError;
 import com.kbear.noknok.dtos.CustomErrorType;
+import com.kbear.noknok.service.completionhandlers.AccountCompletionHandler;
 import com.kbear.noknok.service.completionhandlers.BooleanCompletionHandler;
 import com.kbear.noknok.service.completionhandlers.IBaseCompletionHandler;
 import com.kbear.noknok.service.completionhandlers.StringCompletionHandler;
@@ -56,6 +58,25 @@ public final class ResponseParser {
                     } else {
                         ((BooleanCompletionHandler) completionHandler).onSuccess(false);
                     }
+                }
+            }
+        }
+    }
+
+    public static class AccountJsonHttpResponseHandler extends BaseJsonHttpResponseHandler {
+        public AccountJsonHttpResponseHandler(AccountCompletionHandler booleanCompletionHandler) {
+            super(booleanCompletionHandler);
+        }
+
+        @Override
+        public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+            Account account = responseHandler.accountResponseParser.parse(statusCode, headers, response);
+            if (completionHandler != null) {
+                if (account != null) {
+                    ((AccountCompletionHandler)completionHandler).onSuccess(account);
+                } else {
+                    CustomError customError = responseHandler.customErrorParser.parse(statusCode, headers, response);
+                    handleNoResult(customError);
                 }
             }
         }

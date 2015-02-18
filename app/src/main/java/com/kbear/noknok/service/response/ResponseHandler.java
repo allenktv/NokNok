@@ -1,5 +1,7 @@
 package com.kbear.noknok.service.response;
 
+import com.google.gson.Gson;
+import com.kbear.noknok.dtos.Account;
 import com.kbear.noknok.dtos.CustomError;
 
 import org.apache.http.Header;
@@ -18,6 +20,10 @@ public final class ResponseHandler {
 
     public interface IStringResponseParser {
         public String parse(int statusCode, Header[] headers, JSONObject response);
+    }
+
+    public interface IAccountResponseParser {
+        public Account parse(int statusCode, Header[] headers, JSONObject response);
     }
 
     public interface ICustomErrorParser {
@@ -46,6 +52,21 @@ public final class ResponseHandler {
             if (statusCode == HttpStatus.SC_OK) {
                 try {
                     return response.getString("result");
+                } catch (JSONException ex) {
+                    return null;
+                }
+            } else {
+                return null;
+            }
+        }
+    };
+
+    public IAccountResponseParser accountResponseParser = new IAccountResponseParser() {
+        @Override
+        public Account parse(int statusCode, Header[] headers, JSONObject response) {
+            if (statusCode == HttpStatus.SC_OK) {
+                try {
+                    return new Gson().fromJson(response.getString("result"), Account.class);
                 } catch (JSONException ex) {
                     return null;
                 }
