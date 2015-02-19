@@ -12,6 +12,8 @@ public class NokNokApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
+
+        initSingletons();
     }
 
     private void initSingletons() {

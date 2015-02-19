@@ -15,8 +15,7 @@ public final class ConnectionHelper {
     private final static ConnectionHelper INSTANCE = new ConnectionHelper();
     private ConnectivityManager connectivityManager;
 
-    private ConnectionHelper() {
-    }
+    private ConnectionHelper() {}
     public static synchronized ConnectionHelper getInstance() {
         return INSTANCE;
     }

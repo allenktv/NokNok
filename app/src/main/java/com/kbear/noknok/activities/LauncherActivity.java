@@ -15,6 +15,7 @@ import com.kbear.noknok.dtos.Account;
 import com.kbear.noknok.dtos.CustomError;
 import com.kbear.noknok.service.completionhandlers.AccountCompletionHandler;
 import com.kbear.noknok.service.completionhandlers.BooleanCompletionHandler;
+import com.kbear.noknok.utils.helpers.ConnectionHelper;
 
 
 public class LauncherActivity extends ActionBarActivity {
