@@ -1,7 +1,7 @@
 package com.kbear.noknok.activities;
 
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -14,21 +14,26 @@ import com.kbear.noknok.bo.AccountBO;
 import com.kbear.noknok.dtos.Account;
 import com.kbear.noknok.dtos.CustomError;
 import com.kbear.noknok.service.completionhandlers.AccountCompletionHandler;
-import com.kbear.noknok.service.completionhandlers.BooleanCompletionHandler;
-import com.kbear.noknok.utils.helpers.ConnectionHelper;
+
+import butterknife.ButterKnife;
+import butterknife.InjectView;
 
 
-public class LauncherActivity extends ActionBarActivity {
+public class LauncherActivity extends BaseActivity {
+
+    @InjectView(R.id.username) EditText username;
+    @InjectView(R.id.password) EditText password;
+    @InjectView(R.id.verify_password) EditText verifyPassword;
+    @InjectView(R.id.create_account) Button createAccount;
+    @InjectView(R.id.login) Button login;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_launcher);
-        final EditText username = (EditText)findViewById(R.id.username);
-        final EditText password = (EditText)findViewById(R.id.password);
-        final EditText verifyPassword = (EditText)findViewById(R.id.verify_password);
-        final Button create = (Button) findViewById(R.id.create_account);
-        create.setOnClickListener(new View.OnClickListener() {
+        ButterKnife.inject(this);
+
+        createAccount.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 AccountBO.createAccount(username.getText().toString(), password.getText().toString(), verifyPassword.getText().toString(), new AccountCompletionHandler() {
@@ -44,7 +49,6 @@ public class LauncherActivity extends ActionBarActivity {
                 });
             }
         });
-        Button login = (Button) findViewById(R.id.login);
         login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

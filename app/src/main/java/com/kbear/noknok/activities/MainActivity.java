@@ -1,6 +1,5 @@
 package com.kbear.noknok.activities;
 
-import android.app.Activity;
 import android.os.Bundle;
 import android.widget.TextView;
 
@@ -9,7 +8,7 @@ import com.kbear.noknok.R;
 /**
  * Created by allen on 2/17/15.
  */
-public class MainActivity extends Activity {
+public class MainActivity extends BaseActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
