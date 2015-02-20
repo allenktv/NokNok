@@ -1,5 +1,7 @@
 <resources>
     <string name="app_name">NokNok</string>
+    
+    <string name="preference_file_key">NokNokPrefs</string>
 
     <string name="action_settings">Settings</string>
 

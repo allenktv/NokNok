@@ -19,7 +19,7 @@ import org.json.JSONObject;
  */
 public final class ResponseParser {
 
-    private static ResponseHandler responseHandler = new ResponseHandler();
+    private static ResponseHandler sResponseHandler = new ResponseHandler();
 
     public static class StringJsonHttpResponseHandler extends BaseJsonHttpResponseHandler {
         public StringJsonHttpResponseHandler(StringCompletionHandler stringCompletionHandler) {
@@ -29,11 +29,11 @@ public final class ResponseParser {
         @Override
         public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
             if (completionHandler != null) {
-                String value = responseHandler.stringResponseParser.parse(statusCode, headers, response);
+                String value = sResponseHandler.stringResponseParser.parse(statusCode, headers, response);
                 if (value != null) {
                     ((StringCompletionHandler) completionHandler).onSuccess(value);
                 } else {
-                    CustomError customError = responseHandler.customErrorParser.parse(statusCode, headers, response);
+                    CustomError customError = sResponseHandler.customErrorParser.parse(statusCode, headers, response);
                     handleNoResult(customError);
                 }
             }
@@ -48,11 +48,11 @@ public final class ResponseParser {
         @Override
         public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
             if (completionHandler != null) {
-                boolean success = responseHandler.booleanResponseParser.parse(statusCode, headers, response);
+                boolean success = sResponseHandler.booleanResponseParser.parse(statusCode, headers, response);
                 if (success) {
                     ((BooleanCompletionHandler)completionHandler).onSuccess(true);
                 } else {
-                    CustomError customError = responseHandler.customErrorParser.parse(statusCode, headers, response);
+                    CustomError customError = sResponseHandler.customErrorParser.parse(statusCode, headers, response);
                     if (customError != null) {
                         completionHandler.onFailure(customError);
                     } else {
@@ -71,11 +71,11 @@ public final class ResponseParser {
         @Override
         public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
             if (completionHandler != null) {
-                Account account = responseHandler.accountResponseParser.parse(statusCode, headers, response);
+                Account account = sResponseHandler.accountResponseParser.parse(statusCode, headers, response);
                 if (account != null) {
                     ((AccountCompletionHandler)completionHandler).onSuccess(account);
                 } else {
-                    CustomError customError = responseHandler.customErrorParser.parse(statusCode, headers, response);
+                    CustomError customError = sResponseHandler.customErrorParser.parse(statusCode, headers, response);
                     handleNoResult(customError);
                 }
             }

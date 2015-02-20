@@ -3,6 +3,8 @@ package com.kbear.noknok.utils.helpers;
 import android.content.Context;
 import android.content.SharedPreferences;
 
+import com.kbear.noknok.R;
+
 import java.util.Set;
 
 /**
@@ -19,7 +21,7 @@ public final class SharedPreferencesHelper {
     }
 
     public void init(Context context) {
-        preferences = context.getSharedPreferences("MyPreferences", Context.MODE_PRIVATE);
+        preferences = context.getSharedPreferences(context.getString(R.string.preference_file_key), Context.MODE_PRIVATE);
         editor = preferences.edit();
     }
 

@@ -13,10 +13,10 @@ public class NokNokApplication extends Application {
     public void onCreate() {
         super.onCreate();
 
-        initSingletons();
+        init();
     }
 
-    private void initSingletons() {
+    private void init() {
         ConnectionHelper.getInstance().init(this);
     }
 }

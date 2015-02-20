@@ -1,7 +1,6 @@
 package com.kbear.noknok.activities;
 
 import android.os.Bundle;
-import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -21,11 +20,11 @@ import butterknife.InjectView;
 
 public class LauncherActivity extends BaseActivity {
 
-    @InjectView(R.id.username) EditText username;
-    @InjectView(R.id.password) EditText password;
-    @InjectView(R.id.verify_password) EditText verifyPassword;
-    @InjectView(R.id.create_account) Button createAccount;
-    @InjectView(R.id.login) Button login;
+    @InjectView(R.id.username) EditText mUsernameET;
+    @InjectView(R.id.password) EditText mPasswordET;
+    @InjectView(R.id.verify_password) EditText mVerifyPasswordET;
+    @InjectView(R.id.create_account) Button mCreateButton;
+    @InjectView(R.id.login) Button mLoginButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,10 +32,10 @@ public class LauncherActivity extends BaseActivity {
         setContentView(R.layout.activity_launcher);
         ButterKnife.inject(this);
 
-        createAccount.setOnClickListener(new View.OnClickListener() {
+        mCreateButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                AccountBO.createAccount(username.getText().toString(), password.getText().toString(), verifyPassword.getText().toString(), new AccountCompletionHandler() {
+                AccountBO.createAccount(mUsernameET.getText().toString(), mPasswordET.getText().toString(), mVerifyPasswordET.getText().toString(), new AccountCompletionHandler() {
                     @Override
                     public void onSuccess(Account account) {
                         Toast.makeText(LauncherActivity.this, "id: " + account.getId() + ", username: " + account.getUsername(), Toast.LENGTH_SHORT).show();
@@ -49,10 +48,10 @@ public class LauncherActivity extends BaseActivity {
                 });
             }
         });
-        login.setOnClickListener(new View.OnClickListener() {
+        mLoginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                AccountBO.login(username.getText().toString(), password.getText().toString(), new AccountCompletionHandler() {
+                AccountBO.login(mUsernameET.getText().toString(), mPasswordET.getText().toString(), new AccountCompletionHandler() {
                     @Override
                     public void onSuccess(Account account) {
                         Toast.makeText(LauncherActivity.this, "id: " + account.getId() + ", username: " + account.getUsername(), Toast.LENGTH_SHORT).show();
