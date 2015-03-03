@@ -1,5 +1,6 @@
 package com.kbear.noknok.activities;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -46,6 +47,8 @@ public class LauncherActivity extends BaseActivity {
                         Toast.makeText(LauncherActivity.this, error.getMessage(), Toast.LENGTH_SHORT).show();
                     }
                 });
+                Intent intent = new Intent(LauncherActivity.this, MainActivity.class);
+                startActivity(intent);
             }
         });
         mLoginButton.setOnClickListener(new View.OnClickListener() {
