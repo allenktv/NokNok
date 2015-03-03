@@ -27,7 +27,7 @@ android {
         }
 
         dev {
-            applicationId "com.kbear.noknok.dev"
+            applicationId "com.kbear.noknok"
         }
     }
 }
