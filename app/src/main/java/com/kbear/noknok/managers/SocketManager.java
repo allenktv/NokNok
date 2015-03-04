@@ -1,8 +1,12 @@
 package com.kbear.noknok.managers;
 
+import com.github.nkzawa.socketio.client.Ack;
 import com.github.nkzawa.socketio.client.IO;
 import com.github.nkzawa.socketio.client.Socket;
 import com.kbear.noknok.ServerConstants;
+import com.kbear.noknok.service.response.IBaseResponseHandler;
+
+import org.json.JSONObject;
 
 import java.net.URISyntaxException;
 
@@ -32,5 +36,14 @@ public class SocketManager {
 
     public static Socket getSocket() {
         return sSocket;
+    }
+
+    public static void emit(String event, Object data, final IBaseResponseHandler responseHandler) {
+        sSocket.emit(event, data, new Ack() {
+            @Override
+            public void call(Object... args) {
+                responseHandler.onResponseReceived((JSONObject)args[0]);
+            }
+        });
     }
 }

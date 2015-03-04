@@ -1,23 +1,12 @@
 package com.kbear.noknok.service;
 
-import android.util.Log;
-import android.widget.Toast;
-
-import com.github.nkzawa.socketio.client.Ack;
-import com.github.nkzawa.socketio.client.IO;
-import com.github.nkzawa.socketio.client.Socket;
-import com.kbear.noknok.ServerConstants;
-import com.kbear.noknok.managers.NetworkManager;
+import com.kbear.noknok.dtos.CustomError;
+import com.kbear.noknok.factories.JsonFactory;
 import com.kbear.noknok.managers.SocketManager;
 import com.kbear.noknok.service.completionhandlers.AccountCompletionHandler;
-import com.kbear.noknok.service.response.ResponseParser;
-import com.kbear.noknok.common.ServiceConstants;
-import com.loopj.android.http.RequestParams;
+import com.kbear.noknok.service.response.SocketResponseParser;
 
-import org.json.JSONException;
 import org.json.JSONObject;
-
-import java.net.URISyntaxException;
 
 /**
  * Created by allen on 2/13/15.
@@ -25,19 +14,13 @@ import java.net.URISyntaxException;
 public final class AccountService {
 
     public static void createAccount(String username, String password, String verifyPassword, AccountCompletionHandler completionHandler) {
-            SocketManager.getSocket().connect();
-            JSONObject jsonObject = new JSONObject();
-            try {
-                jsonObject.put("username", username);
-                jsonObject.put("password", password);
-                jsonObject.put("verify", verifyPassword);
-            } catch (JSONException e) {}
-            SocketManager.getSocket().emit("createUser", jsonObject, new Ack() {
-                @Override
-                public void call(Object... args) {
-                    Log.d("socket: ", args[0].toString());
-                }
-            });
+        JSONObject account = JsonFactory.AccountJsonBuilder(username, password, verifyPassword);
+        if (account != null) {
+            SocketResponseParser.AccountSocketResponseHandler responseHandler = new SocketResponseParser.AccountSocketResponseHandler(completionHandler);
+            SocketManager.emit("createUser", account, responseHandler);
+        } else {
+            completionHandler.onFailure(new CustomError(new Exception("Failed to parse Json")));
+        }
     }
 
 //    public static void createAccount(String username, String password, String verifyPassword, AccountCompletionHandler completionHandler) {

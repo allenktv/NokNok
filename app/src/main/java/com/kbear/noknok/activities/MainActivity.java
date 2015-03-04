@@ -12,7 +12,10 @@ import com.github.nkzawa.emitter.Emitter;
 import com.github.nkzawa.socketio.client.Ack;
 import com.google.gson.Gson;
 import com.kbear.noknok.R;
+import com.kbear.noknok.bo.ChatBO;
+import com.kbear.noknok.dtos.CustomError;
 import com.kbear.noknok.managers.SocketManager;
+import com.kbear.noknok.service.completionhandlers.BooleanCompletionHandler;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -38,15 +41,23 @@ public class MainActivity extends BaseActivity {
         mSendMessage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                SocketManager.getSocket().emit("send message", mMessageBox.getText().toString(), new Ack() {
+                ChatBO.sendMessage(mMessageBox.getText().toString(), new BooleanCompletionHandler() {
                     @Override
-                    public void call(final Object... args) {
-                        Gson gson = new Gson();
-                        final AAA asfdfa = gson.fromJson(args[0].toString(), AAA.class);
+                    public void onSuccess(boolean success) {
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-                                Toast.makeText(MainActivity.this, asfdfa.getCode(), Toast.LENGTH_SHORT).show();
+                                Toast.makeText(MainActivity.this, "SUCCESSSSSS", Toast.LENGTH_SHORT).show();
+                            }
+                        });
+                    }
+
+                    @Override
+                    public void onFailure(final CustomError error) {
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                Toast.makeText(MainActivity.this, error.getMessage(), Toast.LENGTH_SHORT).show();
                             }
                         });
                     }
