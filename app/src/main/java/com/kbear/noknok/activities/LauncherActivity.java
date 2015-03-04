@@ -1,5 +1,6 @@
 package com.kbear.noknok.activities;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -37,15 +38,27 @@ public class LauncherActivity extends BaseActivity {
             public void onClick(View v) {
                 AccountBO.createAccount(mUsernameET.getText().toString(), mPasswordET.getText().toString(), mVerifyPasswordET.getText().toString(), new AccountCompletionHandler() {
                     @Override
-                    public void onSuccess(Account account) {
-                        Toast.makeText(LauncherActivity.this, "id: " + account.getId() + ", username: " + account.getUsername(), Toast.LENGTH_SHORT).show();
+                    public void onSuccess(final Account account) {
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                Toast.makeText(LauncherActivity.this, "id: " + account.getId() + ", username: " + account.getUsername(), Toast.LENGTH_SHORT).show();
+                            }
+                        });
                     }
 
                     @Override
-                    public void onFailure(CustomError error) {
-                        Toast.makeText(LauncherActivity.this, error.getMessage(), Toast.LENGTH_SHORT).show();
+                    public void onFailure(final CustomError error) {
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                Toast.makeText(LauncherActivity.this, error.getMessage(), Toast.LENGTH_SHORT).show();
+                            }
+                        });
                     }
                 });
+                Intent intent = new Intent(LauncherActivity.this, MainActivity.class);
+                startActivity(intent);
             }
         });
         mLoginButton.setOnClickListener(new View.OnClickListener() {

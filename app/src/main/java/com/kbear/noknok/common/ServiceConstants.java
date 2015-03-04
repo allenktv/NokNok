@@ -29,4 +29,5 @@ public final class ServiceConstants {
     public static final String REQUEST_PARAMETER_PASSWORD = "password";
     public static final String REQUEST_PARAMETER_VERIFY_PASSWORD = "verify";
     public static final String REQUEST_PARAMETER_GENDER = "gender";
+    public static final String REQUEST_PARAMETER_MESSAGE = "msg";
 }
