@@ -6,7 +6,7 @@ package com.kbear.noknok.service.completionhandlers;
 public abstract class AbstractBaseCompletionHandler implements IBaseCompletionHandler {
 
     @Override
-    public void onProgress(int bytesWritten, int totalSize) {
+    public void onProgress(final int bytesWritten, final int totalSize) {
 
     }
 }

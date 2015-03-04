@@ -2,6 +2,7 @@ package com.kbear.noknok.activities;
 
 import android.app.Application;
 
+import com.kbear.noknok.managers.SocketManager;
 import com.kbear.noknok.utils.helpers.ConnectionHelper;
 
 /**
@@ -18,5 +19,6 @@ public class NokNokApplication extends Application {
 
     private void init() {
         ConnectionHelper.getInstance().init(this);
+        SocketManager.init();
     }
 }
