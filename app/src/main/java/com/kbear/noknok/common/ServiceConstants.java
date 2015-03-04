@@ -10,15 +10,16 @@ public final class ServiceConstants {
     public static final String BASE_SERVER_URL = ServerConstants.BASE_SERVER_URL;
 
     /**
-     * Routes
+     * Events
      */
 
     //Account
-    private static final String ACCOUNT = "account/";
-    public static final String ACCOUNT_LOGIN = ACCOUNT + "login/";
-    public static final String ACCOUNT_CREATE = ACCOUNT + "create/";
+    public static final String CREATE_ACCOUNT = "createAccount";
+    public static final String LOGIN_ACCOUNT = "loginAccount";
 
     //Message
+    public static final String SEND_MESSAGE = "sendMessage";
+    public static final String NEW_MESSAGE = "newMessage";
 
 
     /**

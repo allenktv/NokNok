@@ -1,9 +1,11 @@
 package com.kbear.noknok.service;
 
+import com.kbear.noknok.common.ServiceConstants;
 import com.kbear.noknok.dtos.CustomError;
 import com.kbear.noknok.factories.JsonFactory;
 import com.kbear.noknok.managers.SocketManager;
 import com.kbear.noknok.service.completionhandlers.BooleanCompletionHandler;
+import com.kbear.noknok.service.completionhandlers.MessageCompletionHandler;
 import com.kbear.noknok.service.response.SocketResponseParser;
 
 import org.json.JSONObject;
@@ -17,9 +19,14 @@ public class ChatService {
         JSONObject msg = JsonFactory.MessageJsonBuilder(message);
         if (msg != null) {
             SocketResponseParser.BooleanResponseHandler responseHandler = new SocketResponseParser.BooleanResponseHandler(completionHandler);
-            SocketManager.emit("send message", msg, responseHandler);
+            SocketManager.emit(ServiceConstants.SEND_MESSAGE, msg, responseHandler);
         } else {
             completionHandler.onFailure(new CustomError(new Exception("Failed to parse Json")));
         }
+    }
+
+    public static void receiveMessage(MessageCompletionHandler completionHandler) {
+        SocketResponseParser.MessageResponseHandler responseHandler = new SocketResponseParser.MessageResponseHandler(completionHandler);
+        SocketManager.on(ServiceConstants.NEW_MESSAGE, responseHandler);
     }
 }

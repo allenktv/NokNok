@@ -3,9 +3,11 @@ package com.kbear.noknok.service.response;
 import com.kbear.noknok.dtos.Account;
 import com.kbear.noknok.dtos.CustomError;
 import com.kbear.noknok.dtos.CustomErrorType;
+import com.kbear.noknok.dtos.Message;
 import com.kbear.noknok.service.completionhandlers.AccountCompletionHandler;
 import com.kbear.noknok.service.completionhandlers.BooleanCompletionHandler;
 import com.kbear.noknok.service.completionhandlers.IBaseCompletionHandler;
+import com.kbear.noknok.service.completionhandlers.MessageCompletionHandler;
 import com.kbear.noknok.utils.helpers.ConnectionHelper;
 
 import org.json.JSONObject;
@@ -38,8 +40,8 @@ public class SocketResponseParser {
         }
     }
 
-    public static class AccountSocketResponseHandler extends BaseResponseHandler {
-        public AccountSocketResponseHandler(AccountCompletionHandler accountCompletionHandler) {
+    public static class AccountResponseHandler extends BaseResponseHandler {
+        public AccountResponseHandler(AccountCompletionHandler accountCompletionHandler) {
             super(accountCompletionHandler);
         }
 
@@ -49,6 +51,25 @@ public class SocketResponseParser {
                 Account account = sResponseHandler.accountResponseParser.parse(response);
                 if (account != null) {
                     ((AccountCompletionHandler)completionHandler).onSuccess(account);
+                } else {
+                    CustomError customError = sResponseHandler.customErrorParser.parse(response);
+                    handleNoResult(customError);
+                }
+            }
+        }
+    }
+
+    public static class MessageResponseHandler extends BaseResponseHandler {
+        public MessageResponseHandler(MessageCompletionHandler messageCompletionHandler) {
+            super(messageCompletionHandler);
+        }
+
+        @Override
+        public void onResponseReceived(JSONObject response) {
+            if (completionHandler != null) {
+                Message message = sResponseHandler.messageResponseParser.parse(response);
+                if (message != null) {
+                    ((MessageCompletionHandler)completionHandler).onSuccess(message);
                 } else {
                     CustomError customError = sResponseHandler.customErrorParser.parse(response);
                     handleNoResult(customError);

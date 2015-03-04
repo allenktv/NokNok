@@ -19,6 +19,5 @@ public class NokNokApplication extends Application {
 
     private void init() {
         ConnectionHelper.getInstance().init(this);
-        SocketManager.init();
     }
 }

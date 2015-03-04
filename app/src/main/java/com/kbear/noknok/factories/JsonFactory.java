@@ -1,7 +1,6 @@
 package com.kbear.noknok.factories;
 
 import com.kbear.noknok.common.ServiceConstants;
-import com.kbear.noknok.dtos.Account;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -11,12 +10,11 @@ import org.json.JSONObject;
  */
 public class JsonFactory {
 
-    public static JSONObject AccountJsonBuilder(String username, String password, String verify) {
+    public static JSONObject AccountJsonBuilder(String username, String password) {
         JSONObject jsonObject = new JSONObject();
         try {
             jsonObject.put(ServiceConstants.REQUEST_PARAMETER_USERNAME, username);
             jsonObject.put(ServiceConstants.REQUEST_PARAMETER_PASSWORD, password);
-            jsonObject.put(ServiceConstants.REQUEST_PARAMETER_VERIFY_PASSWORD, verify);
             return jsonObject;
         } catch (JSONException e) {
             return null;

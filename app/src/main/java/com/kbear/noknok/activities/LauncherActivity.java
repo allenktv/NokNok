@@ -2,6 +2,7 @@ package com.kbear.noknok.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -31,6 +32,7 @@ public class LauncherActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_launcher);
+
         ButterKnife.inject(this);
 
         mCreateButton.setOnClickListener(new View.OnClickListener() {
@@ -39,26 +41,15 @@ public class LauncherActivity extends BaseActivity {
                 AccountBO.createAccount(mUsernameET.getText().toString(), mPasswordET.getText().toString(), mVerifyPasswordET.getText().toString(), new AccountCompletionHandler() {
                     @Override
                     public void onSuccess(final Account account) {
-                        runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                Toast.makeText(LauncherActivity.this, "id: " + account.getId() + ", username: " + account.getUsername(), Toast.LENGTH_SHORT).show();
-                            }
-                        });
+                        Intent intent = new Intent(LauncherActivity.this, MainActivity.class);
+                        startActivity(intent);
                     }
 
                     @Override
                     public void onFailure(final CustomError error) {
-                        runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                Toast.makeText(LauncherActivity.this, error.getMessage(), Toast.LENGTH_SHORT).show();
-                            }
-                        });
+                        Toast.makeText(LauncherActivity.this, error.getMessage(), Toast.LENGTH_SHORT).show();
                     }
                 });
-                Intent intent = new Intent(LauncherActivity.this, MainActivity.class);
-                startActivity(intent);
             }
         });
         mLoginButton.setOnClickListener(new View.OnClickListener() {
@@ -67,7 +58,8 @@ public class LauncherActivity extends BaseActivity {
                 AccountBO.login(mUsernameET.getText().toString(), mPasswordET.getText().toString(), new AccountCompletionHandler() {
                     @Override
                     public void onSuccess(Account account) {
-                        Toast.makeText(LauncherActivity.this, "id: " + account.getId() + ", username: " + account.getUsername(), Toast.LENGTH_SHORT).show();
+                        Intent intent = new Intent(LauncherActivity.this, MainActivity.class);
+                        startActivity(intent);
                     }
 
                     @Override

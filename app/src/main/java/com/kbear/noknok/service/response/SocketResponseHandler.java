@@ -3,6 +3,7 @@ package com.kbear.noknok.service.response;
 import com.google.gson.Gson;
 import com.kbear.noknok.dtos.Account;
 import com.kbear.noknok.dtos.CustomError;
+import com.kbear.noknok.dtos.Message;
 
 import org.apache.http.Header;
 import org.json.JSONException;
@@ -19,6 +20,10 @@ public class SocketResponseHandler {
 
     public interface IAccountResponseParser {
         public Account parse(JSONObject response);
+    }
+
+    public interface IMessageResponseParser {
+        public Message parse(JSONObject response);
     }
 
     public interface ICustomErrorResponseParser {
@@ -39,12 +44,19 @@ public class SocketResponseHandler {
 
     public IAccountResponseParser accountResponseParser = new IAccountResponseParser() {
         @Override
-        public Account parse(JSONObject result) {
+        public Account parse(JSONObject response) {
             try {
-                return new Gson().fromJson(result.getString("result"), Account.class);
+                return new Gson().fromJson(response.getString("result"), Account.class);
             } catch (JSONException ex) {
                 return null;
             }
+        }
+    };
+
+    public IMessageResponseParser messageResponseParser = new IMessageResponseParser() {
+        @Override
+        public Message parse(JSONObject response) {
+            return new Gson().fromJson(response.toString(), Message.class);
         }
     };
 
