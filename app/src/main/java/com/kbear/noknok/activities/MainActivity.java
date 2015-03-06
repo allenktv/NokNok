@@ -1,5 +1,6 @@
 package com.kbear.noknok.activities;
 
+import android.location.Location;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
@@ -15,6 +16,7 @@ import com.kbear.noknok.R;
 import com.kbear.noknok.bo.ChatBO;
 import com.kbear.noknok.dtos.CustomError;
 import com.kbear.noknok.dtos.Message;
+import com.kbear.noknok.managers.LocationManager;
 import com.kbear.noknok.managers.SocketManager;
 import com.kbear.noknok.service.completionhandlers.BooleanCompletionHandler;
 import com.kbear.noknok.service.completionhandlers.MessageCompletionHandler;
@@ -44,6 +46,8 @@ public class MainActivity extends BaseActivity {
         mSendMessage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Location location = LocationManager.getLastLocation();
+                Toast.makeText(MainActivity.this, "lat: " + location.getLatitude() + ", long: " + location.getLongitude(), Toast.LENGTH_SHORT).show();
                 ChatBO.sendMessage(mMessageBox.getText().toString(), new BooleanCompletionHandler() {
                     @Override
                     public void onSuccess(boolean success) {
