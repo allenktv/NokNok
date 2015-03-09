@@ -24,6 +24,8 @@ import com.kbear.noknok.service.completionhandlers.MessageCompletionHandler;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import javax.inject.Inject;
+
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 
@@ -35,6 +37,8 @@ public class MainActivity extends BaseActivity {
     @InjectView(R.id.chat_view)LinearLayout mScrollView;
     @InjectView(R.id.message_box) EditText mMessageBox;
     @InjectView(R.id.send_message) ImageButton mSendMessage;
+
+    @Inject ChatBO chatBO;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,7 +52,7 @@ public class MainActivity extends BaseActivity {
             public void onClick(View v) {
                 Location location = LocationManager.getLastLocation();
                 Toast.makeText(MainActivity.this, "lat: " + location.getLatitude() + ", long: " + location.getLongitude(), Toast.LENGTH_SHORT).show();
-                ChatBO.sendMessage(mMessageBox.getText().toString(), new BooleanCompletionHandler() {
+                chatBO.sendMessage(mMessageBox.getText().toString(), new BooleanCompletionHandler() {
                     @Override
                     public void onSuccess(boolean success) {
                     }
@@ -62,7 +66,7 @@ public class MainActivity extends BaseActivity {
             }
         });
 
-        ChatBO.onMessageReceived(new MessageCompletionHandler() {
+        chatBO.onMessageReceived(new MessageCompletionHandler() {
             @Override
             public void onSuccess(Message message) {
                 TextView view = new TextView(MainActivity.this);

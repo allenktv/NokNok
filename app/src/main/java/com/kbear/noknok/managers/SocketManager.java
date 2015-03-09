@@ -21,7 +21,7 @@ public class SocketManager {
 
     private static final SocketManager INSTANCE = new SocketManager();
 
-    private static Socket sSocket;
+    private Socket sSocket;
     private SocketManager() {
         try {
             sSocket = IO.socket(ServerConstants.BASE_SERVER_URL);
@@ -34,11 +34,11 @@ public class SocketManager {
         }
     }
 
-    public static Socket getSocket() {
-        return sSocket;
+    public static SocketManager getInstance() {
+        return INSTANCE;
     }
 
-    public static void emit(String event, Object data, final IBaseResponseHandler responseHandler) {
+    public void emit(String event, Object data, final IBaseResponseHandler responseHandler) {
         sSocket.emit(event, data, new Ack() {
             @Override
             public void call(final Object... args) {
@@ -57,7 +57,7 @@ public class SocketManager {
         });
     }
 
-    public static void emitSync(String event, Object data, final IBaseResponseHandler responseHandler) {
+    public void emitSync(String event, Object data, final IBaseResponseHandler responseHandler) {
         sSocket.emit(event, data, new Ack() {
             @Override
             public void call(Object... args) {
@@ -66,7 +66,7 @@ public class SocketManager {
         });
     }
 
-    public static void on(String event, final IBaseResponseHandler responseHandler) {
+    public void on(String event, final IBaseResponseHandler responseHandler) {
         sSocket.on(event, new Emitter.Listener() {
             @Override
             public void call(final Object... args) {

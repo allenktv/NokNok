@@ -4,16 +4,20 @@ import com.kbear.noknok.service.ChatService;
 import com.kbear.noknok.service.completionhandlers.BooleanCompletionHandler;
 import com.kbear.noknok.service.completionhandlers.MessageCompletionHandler;
 
+import javax.inject.Inject;
+
 /**
  * Created by allen on 3/3/15.
  */
 public class ChatBO {
 
-    public static void sendMessage(String message, BooleanCompletionHandler completionHandler) {
-        ChatService.sendMessage(message, completionHandler);
+    @Inject private ChatService chatService;
+
+    public void sendMessage(String message, BooleanCompletionHandler completionHandler) {
+        chatService.sendMessage(message, completionHandler);
     }
 
-    public static void onMessageReceived(MessageCompletionHandler completionHandler) {
-        ChatService.receiveMessage(completionHandler);
+    public void onMessageReceived(MessageCompletionHandler completionHandler) {
+        chatService.receiveMessage(completionHandler);
     }
 }
