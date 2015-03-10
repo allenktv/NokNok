@@ -30,7 +30,6 @@ public class NokNokApplication extends Application {
 
     private void init() {
         ConnectionHelper.getInstance().init(this);
-        LocationManager.init(this);
     }
 
     private List<Object> getModules() {

@@ -13,26 +13,23 @@ import com.google.android.gms.location.LocationServices;
  */
 public class LocationManager implements GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener{
 
-    private static final LocationManager INSTANCE = new LocationManager();
-    private static GoogleApiClient sGoogleApiClient;
+    private GoogleApiClient mGoogleApiClient;
 
-    private LocationManager() {}
-
-    public static void init(Context context) {
+    public LocationManager(Context context) {
         buildAndConnectGoogleApiClient(context);
     }
 
-    private static synchronized void buildAndConnectGoogleApiClient(Context context) {
-        sGoogleApiClient = new GoogleApiClient.Builder(context)
-                .addConnectionCallbacks(INSTANCE)
-                .addOnConnectionFailedListener(INSTANCE)
+    private synchronized void buildAndConnectGoogleApiClient(Context context) {
+        mGoogleApiClient = new GoogleApiClient.Builder(context)
+                .addConnectionCallbacks(this)
+                .addOnConnectionFailedListener(this)
                 .addApi(LocationServices.API)
                 .build();
-        sGoogleApiClient.connect();
+        mGoogleApiClient.connect();
     }
 
-    public static Location getLastLocation() {
-        return LocationServices.FusedLocationApi.getLastLocation(sGoogleApiClient);
+    public Location getLastLocation() {
+        return LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
     }
 
     @Override

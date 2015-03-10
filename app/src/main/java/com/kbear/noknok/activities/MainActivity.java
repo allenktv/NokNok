@@ -9,20 +9,13 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.github.nkzawa.emitter.Emitter;
-import com.github.nkzawa.socketio.client.Ack;
-import com.google.gson.Gson;
 import com.kbear.noknok.R;
 import com.kbear.noknok.bo.ChatBO;
 import com.kbear.noknok.dtos.CustomError;
 import com.kbear.noknok.dtos.Message;
 import com.kbear.noknok.managers.LocationManager;
-import com.kbear.noknok.managers.SocketManager;
 import com.kbear.noknok.service.completionhandlers.BooleanCompletionHandler;
 import com.kbear.noknok.service.completionhandlers.MessageCompletionHandler;
-
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import javax.inject.Inject;
 
@@ -34,11 +27,12 @@ import butterknife.InjectView;
  */
 public class MainActivity extends BaseActivity {
 
+    @Inject ChatBO mChatBO;
+    @Inject LocationManager mLocationManager;
+
     @InjectView(R.id.chat_view)LinearLayout mScrollView;
     @InjectView(R.id.message_box) EditText mMessageBox;
     @InjectView(R.id.send_message) ImageButton mSendMessage;
-
-    @Inject ChatBO chatBO;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,9 +44,9 @@ public class MainActivity extends BaseActivity {
         mSendMessage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Location location = LocationManager.getLastLocation();
+                Location location = mLocationManager.getLastLocation();
                 Toast.makeText(MainActivity.this, "lat: " + location.getLatitude() + ", long: " + location.getLongitude(), Toast.LENGTH_SHORT).show();
-                chatBO.sendMessage(mMessageBox.getText().toString(), new BooleanCompletionHandler() {
+                mChatBO.sendMessage(mMessageBox.getText().toString(), new BooleanCompletionHandler() {
                     @Override
                     public void onSuccess(boolean success) {
                     }
@@ -66,7 +60,7 @@ public class MainActivity extends BaseActivity {
             }
         });
 
-        chatBO.onMessageReceived(new MessageCompletionHandler() {
+        mChatBO.onMessageReceived(new MessageCompletionHandler() {
             @Override
             public void onSuccess(Message message) {
                 TextView view = new TextView(MainActivity.this);

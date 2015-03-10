@@ -23,13 +23,13 @@ import butterknife.InjectView;
 
 public class LauncherActivity extends BaseActivity {
 
+    @Inject AccountBO mAccountBO;
+
     @InjectView(R.id.username) EditText mUsernameET;
     @InjectView(R.id.password) EditText mPasswordET;
     @InjectView(R.id.verify_password) EditText mVerifyPasswordET;
     @InjectView(R.id.create_account) Button mCreateButton;
     @InjectView(R.id.login) Button mLoginButton;
-
-    @Inject AccountBO mAccountBO;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

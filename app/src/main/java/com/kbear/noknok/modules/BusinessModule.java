@@ -7,8 +7,6 @@ import com.kbear.noknok.bo.ChatBO;
 import com.kbear.noknok.service.AccountService;
 import com.kbear.noknok.service.ChatService;
 
-import javax.inject.Inject;
-
 import dagger.Module;
 import dagger.Provides;
 

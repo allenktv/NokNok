@@ -18,9 +18,7 @@ import dagger.Provides;
         injects = {
                 ChatBO.class,
                 AccountBO.class
-        },
-        complete = false,
-        library = true
+        }
 )
 public class NetworkModule {
 

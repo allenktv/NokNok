@@ -23,7 +23,8 @@ import dagger.Provides;
         },
         includes = {
             NetworkModule.class,
-            BusinessModule.class
+            BusinessModule.class,
+            UtilsModule.class
         }
 )
 public class AndroidModule {
