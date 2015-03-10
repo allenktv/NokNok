@@ -10,12 +10,16 @@ import com.kbear.noknok.service.response.SocketResponseParser;
 
 import org.json.JSONObject;
 
+import javax.inject.Inject;
+
+import dagger.Provides;
+
 /**
  * Created by allen on 3/3/15.
  */
 public class ChatService {
 
-    private SocketManager socketManager = SocketManager.getInstance();
+    @Inject SocketManager socketManager;
 
     public void sendMessage(String message, BooleanCompletionHandler completionHandler) {
         JSONObject msg = JsonFactory.MessageJsonBuilder(message);

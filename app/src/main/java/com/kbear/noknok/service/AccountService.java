@@ -9,26 +9,30 @@ import com.kbear.noknok.service.response.SocketResponseParser;
 
 import org.json.JSONObject;
 
+import javax.inject.Inject;
+
 /**
  * Created by allen on 2/13/15.
  */
 public final class AccountService {
 
-    public static void createAccount(String username, String password, AccountCompletionHandler completionHandler) {
+    @Inject SocketManager mSocketManager;
+
+    public void createAccount(String username, String password, AccountCompletionHandler completionHandler) {
         JSONObject account = JsonFactory.AccountJsonBuilder(username, password);
         if (account != null) {
             SocketResponseParser.AccountResponseHandler responseHandler = new SocketResponseParser.AccountResponseHandler(completionHandler);
-            SocketManager.emit(ServiceConstants.CREATE_ACCOUNT, account, responseHandler);
+            mSocketManager.emit(ServiceConstants.CREATE_ACCOUNT, account, responseHandler);
         } else {
             completionHandler.onFailure(new CustomError(new Exception("Failed to parse Json")));
         }
     }
 
-    public static void login(String username, String password, AccountCompletionHandler completionHandler) {
+    public void login(String username, String password, AccountCompletionHandler completionHandler) {
         JSONObject account = JsonFactory.AccountJsonBuilder(username, password);
         if (account != null) {
             SocketResponseParser.AccountResponseHandler responseHandler = new SocketResponseParser.AccountResponseHandler(completionHandler);
-            SocketManager.emit(ServiceConstants.LOGIN_ACCOUNT, account, responseHandler);
+            mSocketManager.emit(ServiceConstants.LOGIN_ACCOUNT, account, responseHandler);
         } else {
             completionHandler.onFailure(new CustomError(new Exception("Failed to parse Json")));
         }

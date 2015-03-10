@@ -14,10 +14,15 @@ import com.kbear.noknok.R;
 import com.kbear.noknok.bo.AccountBO;
 import com.kbear.noknok.dtos.Account;
 import com.kbear.noknok.dtos.CustomError;
+import com.kbear.noknok.modules.BOModules;
+import com.kbear.noknok.modules.NetworkModules;
 import com.kbear.noknok.service.completionhandlers.AccountCompletionHandler;
+
+import javax.inject.Inject;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
+import dagger.ObjectGraph;
 
 
 public class LauncherActivity extends BaseActivity {
@@ -28,17 +33,24 @@ public class LauncherActivity extends BaseActivity {
     @InjectView(R.id.create_account) Button mCreateButton;
     @InjectView(R.id.login) Button mLoginButton;
 
+    @Inject AccountBO mAccountBO;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_launcher);
+
+        ObjectGraph objectGraph = ObjectGraph.create(
+                new BOModules(),
+                new NetworkModules()
+        );
 
         ButterKnife.inject(this);
 
         mCreateButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                AccountBO.createAccount(mUsernameET.getText().toString(), mPasswordET.getText().toString(), mVerifyPasswordET.getText().toString(), new AccountCompletionHandler() {
+                mAccountBO.createAccount(mUsernameET.getText().toString(), mPasswordET.getText().toString(), mVerifyPasswordET.getText().toString(), new AccountCompletionHandler() {
                     @Override
                     public void onSuccess(final Account account) {
                         Intent intent = new Intent(LauncherActivity.this, MainActivity.class);
@@ -55,7 +67,7 @@ public class LauncherActivity extends BaseActivity {
         mLoginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                AccountBO.login(mUsernameET.getText().toString(), mPasswordET.getText().toString(), new AccountCompletionHandler() {
+                mAccountBO.login(mUsernameET.getText().toString(), mPasswordET.getText().toString(), new AccountCompletionHandler() {
                     @Override
                     public void onSuccess(Account account) {
                         Intent intent = new Intent(LauncherActivity.this, MainActivity.class);

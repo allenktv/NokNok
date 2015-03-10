@@ -14,36 +14,36 @@ import org.json.JSONObject;
 
 import java.net.URISyntaxException;
 
+import javax.inject.Singleton;
+
+import dagger.Module;
+import dagger.Provides;
+
 /**
  * Created by allen on 3/2/15.
  */
 public class SocketManager {
 
-    private static final SocketManager INSTANCE = new SocketManager();
+    private Socket mSocket;
 
-    private Socket sSocket;
-    private SocketManager() {
+    public SocketManager() {
         try {
-            sSocket = IO.socket(ServerConstants.BASE_SERVER_URL);
+            mSocket = IO.socket(ServerConstants.BASE_SERVER_URL);
         } catch (URISyntaxException e) {
             e.printStackTrace();
         }
 
-        if (sSocket != null) {
-            sSocket.connect();
+        if (mSocket != null) {
+            mSocket.connect();
         }
     }
 
-    public static SocketManager getInstance() {
-        return INSTANCE;
-    }
-
     public void emit(String event, Object data, final IBaseResponseHandler responseHandler) {
-        sSocket.emit(event, data, new Ack() {
+        mSocket.emit(event, data, new Ack() {
             @Override
             public void call(final Object... args) {
                 if (Looper.myLooper() == Looper.getMainLooper()) {
-                    responseHandler.onResponseReceived((JSONObject)args[0]);
+                    responseHandler.onResponseReceived((JSONObject) args[0]);
                 } else {
                     Handler mainHandler = new Handler(Looper.getMainLooper());
                     mainHandler.post(new Runnable() {
@@ -58,7 +58,7 @@ public class SocketManager {
     }
 
     public void emitSync(String event, Object data, final IBaseResponseHandler responseHandler) {
-        sSocket.emit(event, data, new Ack() {
+        mSocket.emit(event, data, new Ack() {
             @Override
             public void call(Object... args) {
                 responseHandler.onResponseReceived((JSONObject) args[0]);
@@ -67,11 +67,11 @@ public class SocketManager {
     }
 
     public void on(String event, final IBaseResponseHandler responseHandler) {
-        sSocket.on(event, new Emitter.Listener() {
+        mSocket.on(event, new Emitter.Listener() {
             @Override
             public void call(final Object... args) {
                 if (Looper.myLooper() == Looper.getMainLooper()) {
-                    responseHandler.onResponseReceived((JSONObject)args[0]);
+                    responseHandler.onResponseReceived((JSONObject) args[0]);
                 } else {
                     Handler mainHandler = new Handler(Looper.getMainLooper());
                     mainHandler.post(new Runnable() {
