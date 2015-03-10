@@ -16,7 +16,12 @@ import javax.inject.Inject;
  */
 public final class AccountService {
 
-    @Inject SocketManager mSocketManager;
+    private final SocketManager mSocketManager;
+
+    @Inject
+    public AccountService(SocketManager socketManager) {
+        mSocketManager = socketManager;
+    }
 
     public void createAccount(String username, String password, AccountCompletionHandler completionHandler) {
         JSONObject account = JsonFactory.AccountJsonBuilder(username, password);

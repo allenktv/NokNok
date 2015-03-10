@@ -6,20 +6,23 @@ import com.kbear.noknok.service.completionhandlers.MessageCompletionHandler;
 
 import javax.inject.Inject;
 
-import dagger.Provides;
-
 /**
  * Created by allen on 3/3/15.
  */
 public class ChatBO {
 
-    @Inject ChatService chatService;
+    private final ChatService mChatService;
+
+    @Inject
+    public ChatBO(ChatService chatService) {
+        mChatService = chatService;
+    }
 
     public void sendMessage(String message, BooleanCompletionHandler completionHandler) {
-        chatService.sendMessage(message, completionHandler);
+        mChatService.sendMessage(message, completionHandler);
     }
 
     public void onMessageReceived(MessageCompletionHandler completionHandler) {
-        chatService.receiveMessage(completionHandler);
+        mChatService.receiveMessage(completionHandler);
     }
 }

@@ -12,7 +12,12 @@ import javax.inject.Inject;
  */
 public final class AccountBO {
 
-    @Inject AccountService mAccountService;
+    private final AccountService mAccountService;
+
+    @Inject
+    public AccountBO(AccountService accountService) {
+        mAccountService = accountService;
+    }
     
     public void createAccount(final String username, final String password, final String verifyPassword, final AccountCompletionHandler completionHandler) {
         CustomError error = AccountValidationHelper.isAccountValid(username, password, verifyPassword);

@@ -19,13 +19,18 @@ import dagger.Provides;
  */
 public class ChatService {
 
-    @Inject SocketManager socketManager;
+    private final SocketManager mSocketManager;
+
+    @Inject
+    public ChatService(SocketManager socketManager) {
+        mSocketManager = socketManager;
+    }
 
     public void sendMessage(String message, BooleanCompletionHandler completionHandler) {
         JSONObject msg = JsonFactory.MessageJsonBuilder(message);
         if (msg != null) {
             SocketResponseParser.BooleanResponseHandler responseHandler = new SocketResponseParser.BooleanResponseHandler(completionHandler);
-            socketManager.emit(ServiceConstants.SEND_MESSAGE, msg, responseHandler);
+            mSocketManager.emit(ServiceConstants.SEND_MESSAGE, msg, responseHandler);
         } else {
             completionHandler.onFailure(new CustomError(new Exception("Failed to parse Json")));
         }
@@ -33,6 +38,6 @@ public class ChatService {
 
     public void receiveMessage(MessageCompletionHandler completionHandler) {
         SocketResponseParser.MessageResponseHandler responseHandler = new SocketResponseParser.MessageResponseHandler(completionHandler);
-        socketManager.on(ServiceConstants.NEW_MESSAGE, responseHandler);
+        mSocketManager.on(ServiceConstants.NEW_MESSAGE, responseHandler);
     }
 }

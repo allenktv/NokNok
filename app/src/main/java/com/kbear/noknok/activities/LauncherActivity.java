@@ -2,7 +2,6 @@ package com.kbear.noknok.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -14,15 +13,12 @@ import com.kbear.noknok.R;
 import com.kbear.noknok.bo.AccountBO;
 import com.kbear.noknok.dtos.Account;
 import com.kbear.noknok.dtos.CustomError;
-import com.kbear.noknok.modules.BOModules;
-import com.kbear.noknok.modules.NetworkModules;
 import com.kbear.noknok.service.completionhandlers.AccountCompletionHandler;
 
 import javax.inject.Inject;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
-import dagger.ObjectGraph;
 
 
 public class LauncherActivity extends BaseActivity {
@@ -39,11 +35,6 @@ public class LauncherActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_launcher);
-
-        ObjectGraph objectGraph = ObjectGraph.create(
-                new BOModules(),
-                new NetworkModules()
-        );
 
         ButterKnife.inject(this);
 
