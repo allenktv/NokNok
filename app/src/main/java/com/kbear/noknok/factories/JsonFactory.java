@@ -21,6 +21,16 @@ public class JsonFactory {
         }
     }
 
+    public static JSONObject UsernameJsonBuilder(String username) {
+        JSONObject jsonObject = new JSONObject();
+        try {
+            jsonObject.put(ServiceConstants.REQUEST_PARAMETER_USERNAME, username);
+            return jsonObject;
+        } catch (JSONException e) {
+            return null;
+        }
+    }
+
     public static JSONObject MessageJsonBuilder(String msg) {
         JSONObject jsonObject = new JSONObject();
         try {

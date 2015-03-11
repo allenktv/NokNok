@@ -30,7 +30,7 @@ public class MainActivity extends BaseActivity {
     @Inject ChatBO mChatBO;
     @Inject LocationManager mLocationManager;
 
-    @InjectView(R.id.chat_view)LinearLayout mScrollView;
+    @InjectView(R.id.chat_view) LinearLayout mScrollView;
     @InjectView(R.id.message_box) EditText mMessageBox;
     @InjectView(R.id.send_message) ImageButton mSendMessage;
 

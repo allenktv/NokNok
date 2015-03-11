@@ -3,6 +3,7 @@ package com.kbear.noknok.bo;
 import com.kbear.noknok.dtos.CustomError;
 import com.kbear.noknok.service.AccountService;
 import com.kbear.noknok.service.completionhandlers.AccountCompletionHandler;
+import com.kbear.noknok.service.completionhandlers.BooleanCompletionHandler;
 import com.kbear.noknok.utils.helpers.AccountValidationHelper;
 
 import javax.inject.Inject;
@@ -35,5 +36,9 @@ public final class AccountBO {
         } else {
             completionHandler.onFailure(error);
         }
+    }
+
+    public void deleteAccount(final String username, final BooleanCompletionHandler completionHandler) {
+        mAccountService.deleteAccount(username, completionHandler);
     }
 }

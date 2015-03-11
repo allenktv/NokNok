@@ -14,6 +14,7 @@ import com.kbear.noknok.bo.AccountBO;
 import com.kbear.noknok.dtos.Account;
 import com.kbear.noknok.dtos.CustomError;
 import com.kbear.noknok.service.completionhandlers.AccountCompletionHandler;
+import com.kbear.noknok.service.completionhandlers.BooleanCompletionHandler;
 
 import javax.inject.Inject;
 
@@ -30,6 +31,7 @@ public class LauncherActivity extends BaseActivity {
     @InjectView(R.id.verify_password) EditText mVerifyPasswordET;
     @InjectView(R.id.create_account) Button mCreateButton;
     @InjectView(R.id.login) Button mLoginButton;
+    @InjectView(R.id.delete) Button mDelete;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,6 +65,22 @@ public class LauncherActivity extends BaseActivity {
                     public void onSuccess(Account account) {
                         Intent intent = new Intent(LauncherActivity.this, MainActivity.class);
                         startActivity(intent);
+                    }
+
+                    @Override
+                    public void onFailure(CustomError error) {
+                        Toast.makeText(LauncherActivity.this, error.getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                });
+            }
+        });
+        mDelete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mAccountBO.deleteAccount(mUsernameET.getText().toString(), new BooleanCompletionHandler() {
+                    @Override
+                    public void onSuccess(boolean success) {
+                        Toast.makeText(LauncherActivity.this, "deleted account? " + success, Toast.LENGTH_SHORT).show();
                     }
 
                     @Override

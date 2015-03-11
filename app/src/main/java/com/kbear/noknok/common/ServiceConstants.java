@@ -16,6 +16,7 @@ public final class ServiceConstants {
     //Account
     public static final String CREATE_ACCOUNT = "createAccount";
     public static final String LOGIN_ACCOUNT = "loginAccount";
+    public static final String DELETE_ACCOUNT = "deleteAccount";
 
     //Message
     public static final String SEND_MESSAGE = "sendMessage";
