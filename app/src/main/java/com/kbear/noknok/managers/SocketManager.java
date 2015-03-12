@@ -28,7 +28,9 @@ public class SocketManager {
 
     public SocketManager() {
         try {
-            mSocket = IO.socket(ServerConstants.BASE_SERVER_URL);
+            IO.Options opts = new IO.Options();
+            opts.secure = true;
+            mSocket = IO.socket(ServerConstants.BASE_SERVER_URL, opts);
         } catch (URISyntaxException e) {
             e.printStackTrace();
         }
