@@ -27,6 +27,10 @@ public class SocketManager {
     private Socket mSocket;
 
     public SocketManager() {
+        connectSocket();
+    }
+
+    private void connectSocket() {
         try {
             IO.Options opts = new IO.Options();
             opts.secure = true;
@@ -37,6 +41,12 @@ public class SocketManager {
 
         if (mSocket != null) {
             mSocket.connect();
+        }
+    }
+
+    public void reconnectSocket() {
+        if (!mSocket.connected()) {
+            connectSocket();
         }
     }
 

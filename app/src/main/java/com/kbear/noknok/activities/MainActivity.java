@@ -11,6 +11,7 @@ import android.widget.Toast;
 
 import com.kbear.noknok.R;
 import com.kbear.noknok.bo.ChatBO;
+import com.kbear.noknok.bo.SocketBO;
 import com.kbear.noknok.dtos.CustomError;
 import com.kbear.noknok.dtos.Message;
 import com.kbear.noknok.managers.LocationManager;
@@ -29,6 +30,7 @@ public class MainActivity extends BaseActivity {
 
     @Inject ChatBO mChatBO;
     @Inject LocationManager mLocationManager;
+    @Inject SocketBO mSocketBO;
 
     @InjectView(R.id.chat_view) LinearLayout mScrollView;
     @InjectView(R.id.message_box) EditText mMessageBox;
@@ -39,7 +41,10 @@ public class MainActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.chat_layout);
 
+        ((NokNokApplication)getApplication()).inject(this);
         ButterKnife.inject(this);
+
+        mSocketBO.handleOnDisconnect();
 
         mSendMessage.setOnClickListener(new View.OnClickListener() {
             @Override

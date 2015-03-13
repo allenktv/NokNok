@@ -22,6 +22,10 @@ public final class ServiceConstants {
     public static final String SEND_MESSAGE = "sendMessage";
     public static final String NEW_MESSAGE = "newMessage";
 
+    //Socket events
+    public static final String CONNECTED = "connected";
+    public static final String DISCONNECTED = "disconnected";
+
 
     /**
      * Request Parameters

@@ -2,6 +2,7 @@ package com.kbear.noknok.modules;
 
 import com.kbear.noknok.bo.AccountBO;
 import com.kbear.noknok.bo.ChatBO;
+import com.kbear.noknok.bo.SocketBO;
 import com.kbear.noknok.managers.SocketManager;
 import com.kbear.noknok.service.AccountService;
 import com.kbear.noknok.service.ChatService;
@@ -17,7 +18,8 @@ import dagger.Provides;
 @Module(
         injects = {
                 ChatBO.class,
-                AccountBO.class
+                AccountBO.class,
+                SocketBO.class
         }
 )
 public class NetworkModule {

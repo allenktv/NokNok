@@ -1,9 +1,11 @@
 package com.kbear.noknok.modules;
 
-import com.kbear.noknok.activities.LauncherActivity;
 import com.kbear.noknok.activities.MainActivity;
 import com.kbear.noknok.bo.AccountBO;
 import com.kbear.noknok.bo.ChatBO;
+import com.kbear.noknok.bo.SocketBO;
+import com.kbear.noknok.fragments.LoginFragment;
+import com.kbear.noknok.managers.SocketManager;
 import com.kbear.noknok.service.AccountService;
 import com.kbear.noknok.service.ChatService;
 
@@ -15,7 +17,7 @@ import dagger.Provides;
  */
 @Module(
         injects = {
-                LauncherActivity.class,
+                LoginFragment.class,
                 MainActivity.class
         },
         complete = false
@@ -32,4 +34,8 @@ public class BusinessModule {
         return new AccountBO(accountService);
     }
 
+    @Provides
+    SocketBO provideSocketBO(SocketManager socketManager) {
+        return new SocketBO(socketManager);
+    }
 }
