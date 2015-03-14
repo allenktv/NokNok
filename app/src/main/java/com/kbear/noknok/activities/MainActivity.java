@@ -41,7 +41,6 @@ public class MainActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.chat_layout);
 
-        ((NokNokApplication)getApplication()).inject(this);
         ButterKnife.inject(this);
 
         mSocketBO.handleOnDisconnect();

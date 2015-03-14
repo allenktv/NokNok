@@ -18,6 +18,8 @@ public class BaseActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        ((NokNokApplication)getApplication()).inject(this);
     }
 
     @Override

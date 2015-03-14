@@ -31,6 +31,16 @@ public class JsonFactory {
         }
     }
 
+    public static JSONObject AccountIdJsonBuilder(String accountId) {
+        JSONObject jsonObject = new JSONObject();
+        try {
+            jsonObject.put(ServiceConstants.REQUEST_PARAMETER_ACCOUNT_ID, accountId);
+            return jsonObject;
+        } catch (JSONException e) {
+            return null;
+        }
+    }
+
     public static JSONObject MessageJsonBuilder(String msg) {
         JSONObject jsonObject = new JSONObject();
         try {

@@ -7,6 +7,7 @@ import com.kbear.noknok.modules.AndroidModule;
 import com.kbear.noknok.modules.BusinessModule;
 import com.kbear.noknok.modules.NetworkModule;
 import com.kbear.noknok.utils.helpers.ConnectionHelper;
+import com.kbear.noknok.utils.helpers.SharedPreferencesHelper;
 
 import java.util.Arrays;
 import java.util.List;
@@ -30,6 +31,7 @@ public class NokNokApplication extends Application {
 
     private void init() {
         ConnectionHelper.getInstance().init(this);
+        SharedPreferencesHelper.getInstance().init(this);
     }
 
     private List<Object> getModules() {

@@ -1,5 +1,6 @@
 package com.kbear.noknok.modules;
 
+import com.kbear.noknok.activities.LauncherActivity;
 import com.kbear.noknok.activities.MainActivity;
 import com.kbear.noknok.bo.AccountBO;
 import com.kbear.noknok.bo.ChatBO;
@@ -18,7 +19,8 @@ import dagger.Provides;
 @Module(
         injects = {
                 LoginFragment.class,
-                MainActivity.class
+                MainActivity.class,
+                LauncherActivity.class
         },
         complete = false
 )

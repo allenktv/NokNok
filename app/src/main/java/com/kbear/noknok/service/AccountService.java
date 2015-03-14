@@ -24,7 +24,7 @@ public final class AccountService {
         mSocketManager = socketManager;
     }
 
-    public void createAccount(String username, String password, AccountCompletionHandler completionHandler) {
+    public void createAccount(final String username, final String password, final AccountCompletionHandler completionHandler) {
         JSONObject account = JsonFactory.AccountJsonBuilder(username, password);
         if (account != null) {
             SocketResponseParser.AccountResponseHandler responseHandler = new SocketResponseParser.AccountResponseHandler(completionHandler);
@@ -34,7 +34,7 @@ public final class AccountService {
         }
     }
 
-    public void login(String username, String password, AccountCompletionHandler completionHandler) {
+    public void login(final String username, final String password, final AccountCompletionHandler completionHandler) {
         JSONObject account = JsonFactory.AccountJsonBuilder(username, password);
         if (account != null) {
             SocketResponseParser.AccountResponseHandler responseHandler = new SocketResponseParser.AccountResponseHandler(completionHandler);
@@ -44,7 +44,17 @@ public final class AccountService {
         }
     }
 
-    public void deleteAccount(String username, BooleanCompletionHandler completionHandler) {
+    public void getAccount(final String accountId, final AccountCompletionHandler completionHandler) {
+        JSONObject accountIdJson = JsonFactory.AccountIdJsonBuilder(accountId);
+        if (accountIdJson != null) {
+            SocketResponseParser.AccountResponseHandler responseHandler = new SocketResponseParser.AccountResponseHandler(completionHandler);
+            mSocketManager.emit(ServiceConstants.GET_ACCOUNT, accountIdJson, responseHandler);
+        } else {
+            completionHandler.onFailure(new CustomError("Failed to parse Json"));
+        }
+    }
+
+    public void deleteAccount(final String username, final BooleanCompletionHandler completionHandler) {
         JSONObject user = JsonFactory.UsernameJsonBuilder(username);
         if (user != null) {
             SocketResponseParser.BooleanResponseHandler responseHandler = new SocketResponseParser.BooleanResponseHandler(completionHandler);

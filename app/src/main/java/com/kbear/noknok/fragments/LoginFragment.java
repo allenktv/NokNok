@@ -17,6 +17,7 @@ import com.kbear.noknok.dtos.Account;
 import com.kbear.noknok.dtos.CustomError;
 import com.kbear.noknok.service.completionhandlers.AccountCompletionHandler;
 import com.kbear.noknok.service.completionhandlers.BooleanCompletionHandler;
+import com.kbear.noknok.utils.helpers.SharedPreferencesHelper;
 
 import javax.inject.Inject;
 
@@ -51,6 +52,7 @@ public class LoginFragment extends BaseFragment {
                 mAccountBO.createAccount(mUsernameET.getText().toString(), mPasswordET.getText().toString(), mVerifyPasswordET.getText().toString(), new AccountCompletionHandler() {
                     @Override
                     public void onSuccess(final Account account) {
+                        SharedPreferencesHelper.getInstance().setPreference("accountId", account.getId());
                         Intent intent = new Intent(getActivity(), MainActivity.class);
                         startActivity(intent);
                     }
@@ -68,6 +70,7 @@ public class LoginFragment extends BaseFragment {
                 mAccountBO.login(mUsernameET.getText().toString(), mPasswordET.getText().toString(), new AccountCompletionHandler() {
                     @Override
                     public void onSuccess(Account account) {
+                        SharedPreferencesHelper.getInstance().setPreference("accountId", account.getId());
                         Intent intent = new Intent(getActivity(), MainActivity.class);
                         startActivity(intent);
                     }

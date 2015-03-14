@@ -16,6 +16,7 @@ public final class ServiceConstants {
     //Account
     public static final String CREATE_ACCOUNT = "createAccount";
     public static final String LOGIN_ACCOUNT = "loginAccount";
+    public static final String GET_ACCOUNT = "getAccount";
     public static final String DELETE_ACCOUNT = "deleteAccount";
 
     //Message
@@ -30,7 +31,7 @@ public final class ServiceConstants {
     /**
      * Request Parameters
      */
-    public static final String REQUEST_PARAMETER_ID = "id";
+    public static final String REQUEST_PARAMETER_ACCOUNT_ID = "accountId";
     public static final String REQUEST_PARAMETER_USERNAME = "username";
     public static final String REQUEST_PARAMETER_PASSWORD = "password";
     public static final String REQUEST_PARAMETER_VERIFY_PASSWORD = "verify";

@@ -38,6 +38,10 @@ public final class AccountBO {
         }
     }
 
+    public void getAccount(final String accountId, final AccountCompletionHandler completionHandler) {
+        mAccountService.getAccount(accountId, completionHandler);
+    }
+
     public void deleteAccount(final String username, final BooleanCompletionHandler completionHandler) {
         mAccountService.deleteAccount(username, completionHandler);
     }

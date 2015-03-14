@@ -1,16 +1,29 @@
 package com.kbear.noknok.activities;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import com.kbear.noknok.R;
+import com.kbear.noknok.bo.AccountBO;
+import com.kbear.noknok.bo.SocketBO;
+import com.kbear.noknok.dtos.Account;
+import com.kbear.noknok.dtos.CustomError;
 import com.kbear.noknok.fragments.LoginFragment;
+import com.kbear.noknok.service.completionhandlers.AccountCompletionHandler;
+import com.kbear.noknok.utils.helpers.SharedPreferencesHelper;
+
+import javax.inject.Inject;
 
 import butterknife.ButterKnife;
 
 
 public class LauncherActivity extends BaseActivity {
+
+    @Inject
+    AccountBO accountBO;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -18,8 +31,22 @@ public class LauncherActivity extends BaseActivity {
         setContentView(R.layout.activity_fragment);
 
         ButterKnife.inject(this);
+        if (SharedPreferencesHelper.getInstance().contains("accountId")) {
+            accountBO.getAccount(SharedPreferencesHelper.getInstance().getString("accountId"), new AccountCompletionHandler() {
+                @Override
+                public void onSuccess(Account account) {
+                    Toast.makeText(LauncherActivity.this, "account detected: " + account.getUsername(), Toast.LENGTH_SHORT).show();
+                    startActivity(new Intent(LauncherActivity.this, MainActivity.class));
+                }
 
-        openFragment(new LoginFragment());
+                @Override
+                public void onFailure(CustomError error) {
+                    Toast.makeText(LauncherActivity.this, "error: " + error.getMessage(), Toast.LENGTH_SHORT).show();
+                }
+            });
+        } else {
+            openFragment(new LoginFragment());
+        }
     }
 
 
