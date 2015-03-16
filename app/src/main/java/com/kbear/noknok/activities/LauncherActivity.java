@@ -9,6 +9,7 @@ import android.widget.Toast;
 import com.kbear.noknok.R;
 import com.kbear.noknok.bo.AccountBO;
 import com.kbear.noknok.bo.SocketBO;
+import com.kbear.noknok.common.SharedPreferencesConstants;
 import com.kbear.noknok.dtos.Account;
 import com.kbear.noknok.dtos.CustomError;
 import com.kbear.noknok.fragments.LoginFragment;
@@ -31,8 +32,8 @@ public class LauncherActivity extends BaseActivity {
         setContentView(R.layout.activity_fragment);
 
         ButterKnife.inject(this);
-        if (SharedPreferencesHelper.getInstance().contains("accountId")) {
-            accountBO.getAccount(SharedPreferencesHelper.getInstance().getString("accountId"), new AccountCompletionHandler() {
+        if (SharedPreferencesHelper.getInstance().contains(SharedPreferencesConstants.ACCOUNT_ID)) {
+            accountBO.getAccount(SharedPreferencesHelper.getInstance().getString(SharedPreferencesConstants.ACCOUNT_ID), new AccountCompletionHandler() {
                 @Override
                 public void onSuccess(Account account) {
                     Toast.makeText(LauncherActivity.this, "account detected: " + account.getUsername(), Toast.LENGTH_SHORT).show();
@@ -41,7 +42,9 @@ public class LauncherActivity extends BaseActivity {
 
                 @Override
                 public void onFailure(CustomError error) {
+                    SharedPreferencesHelper.getInstance().remove(SharedPreferencesConstants.ACCOUNT_ID);
                     Toast.makeText(LauncherActivity.this, "error: " + error.getMessage(), Toast.LENGTH_SHORT).show();
+                    openFragment(new LoginFragment());
                 }
             });
         } else {

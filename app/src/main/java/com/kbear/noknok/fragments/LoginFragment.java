@@ -13,6 +13,7 @@ import android.widget.Toast;
 import com.kbear.noknok.R;
 import com.kbear.noknok.activities.MainActivity;
 import com.kbear.noknok.bo.AccountBO;
+import com.kbear.noknok.common.SharedPreferencesConstants;
 import com.kbear.noknok.dtos.Account;
 import com.kbear.noknok.dtos.CustomError;
 import com.kbear.noknok.service.completionhandlers.AccountCompletionHandler;
@@ -52,7 +53,7 @@ public class LoginFragment extends BaseFragment {
                 mAccountBO.createAccount(mUsernameET.getText().toString(), mPasswordET.getText().toString(), mVerifyPasswordET.getText().toString(), new AccountCompletionHandler() {
                     @Override
                     public void onSuccess(final Account account) {
-                        SharedPreferencesHelper.getInstance().setPreference("accountId", account.getId());
+                        SharedPreferencesHelper.getInstance().setPreference(SharedPreferencesConstants.ACCOUNT_ID, account.getId());
                         Intent intent = new Intent(getActivity(), MainActivity.class);
                         startActivity(intent);
                     }
@@ -70,7 +71,7 @@ public class LoginFragment extends BaseFragment {
                 mAccountBO.login(mUsernameET.getText().toString(), mPasswordET.getText().toString(), new AccountCompletionHandler() {
                     @Override
                     public void onSuccess(Account account) {
-                        SharedPreferencesHelper.getInstance().setPreference("accountId", account.getId());
+                        SharedPreferencesHelper.getInstance().setPreference(SharedPreferencesConstants.ACCOUNT_ID, account.getId());
                         Intent intent = new Intent(getActivity(), MainActivity.class);
                         startActivity(intent);
                     }
