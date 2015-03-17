@@ -20,8 +20,10 @@ public final class ServiceConstants {
     public static final String DELETE_ACCOUNT = "deleteAccount";
 
     //Message
-    public static final String SEND_MESSAGE = "sendMessage";
-    public static final String NEW_MESSAGE = "newMessage";
+    public static final String CLIENT_MESSAGE = "clientMessage";
+    public static final String SERVER_MESSAGE = "serverMessage";
+    public static final String CLIENT_TYPING = "clientTyping";
+    public static final String SERVER_TYPING = "serverTyping";
 
     //Socket events
     public static final String CONNECTED = "connected";
@@ -37,4 +39,5 @@ public final class ServiceConstants {
     public static final String REQUEST_PARAMETER_VERIFY_PASSWORD = "verify";
     public static final String REQUEST_PARAMETER_GENDER = "gender";
     public static final String REQUEST_PARAMETER_MESSAGE = "msg";
+    public static final String REQUEST_PARAMETER_IS_TYPING = "isTyping";
 }

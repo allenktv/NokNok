@@ -8,6 +8,8 @@ import com.github.nkzawa.socketio.client.Ack;
 import com.github.nkzawa.socketio.client.IO;
 import com.github.nkzawa.socketio.client.Socket;
 import com.kbear.noknok.ServerConstants;
+import com.kbear.noknok.factories.JsonFactory;
+import com.kbear.noknok.service.request.RequestParameters;
 import com.kbear.noknok.service.response.IBaseResponseHandler;
 
 import org.json.JSONObject;
@@ -50,7 +52,8 @@ public class SocketManager {
         }
     }
 
-    public void emit(String event, Object data, final IBaseResponseHandler responseHandler) {
+    public void emit(String event, RequestParameters requestParameters, final IBaseResponseHandler responseHandler) {
+        JSONObject data = JsonFactory.buildFromRequestParameters(requestParameters);
         mSocket.emit(event, data, new Ack() {
             @Override
             public void call(final Object... args) {

@@ -8,9 +8,12 @@ import com.kbear.noknok.service.completionhandlers.AccountCompletionHandler;
 import com.kbear.noknok.service.completionhandlers.BooleanCompletionHandler;
 import com.kbear.noknok.service.completionhandlers.IBaseCompletionHandler;
 import com.kbear.noknok.service.completionhandlers.MessageCompletionHandler;
+import com.kbear.noknok.service.completionhandlers.StringsCompletionHandler;
 import com.kbear.noknok.utils.helpers.ConnectionHelper;
 
 import org.json.JSONObject;
+
+import java.util.List;
 
 /**
  * Created by allen on 3/3/15.
@@ -70,6 +73,25 @@ public class SocketResponseParser {
                 Message message = sResponseHandler.messageResponseParser.parse(response);
                 if (message != null) {
                     ((MessageCompletionHandler)completionHandler).onSuccess(message);
+                } else {
+                    CustomError customError = sResponseHandler.customErrorParser.parse(response);
+                    handleNoResult(customError);
+                }
+            }
+        }
+    }
+
+    public static class UsernamesResponseHandler extends BaseResponseHandler {
+        public UsernamesResponseHandler (StringsCompletionHandler messageCompletionHandler) {
+            super(messageCompletionHandler);
+        }
+
+        @Override
+        public void onResponseReceived(JSONObject response) {
+            if (completionHandler != null) {
+                List<String> usernames = sResponseHandler.usernamesResponseParser.parse(response);
+                if (usernames != null) {
+                    ((StringsCompletionHandler)completionHandler).onSuccess(usernames);
                 } else {
                     CustomError customError = sResponseHandler.customErrorParser.parse(response);
                     handleNoResult(customError);

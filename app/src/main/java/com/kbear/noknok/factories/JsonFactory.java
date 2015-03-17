@@ -1,50 +1,28 @@
 package com.kbear.noknok.factories;
 
-import com.kbear.noknok.common.ServiceConstants;
+import com.kbear.noknok.service.request.RequestParameters;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.util.Map;
 
 /**
  * Created by allen on 3/3/15.
  */
 public class JsonFactory {
 
-    public static JSONObject AccountJsonBuilder(String username, String password) {
+    public static JSONObject buildFromRequestParameters(final RequestParameters requestParameters) {
         JSONObject jsonObject = new JSONObject();
         try {
-            jsonObject.put(ServiceConstants.REQUEST_PARAMETER_USERNAME, username);
-            jsonObject.put(ServiceConstants.REQUEST_PARAMETER_PASSWORD, password);
-            return jsonObject;
-        } catch (JSONException e) {
-            return null;
-        }
-    }
-
-    public static JSONObject UsernameJsonBuilder(String username) {
-        JSONObject jsonObject = new JSONObject();
-        try {
-            jsonObject.put(ServiceConstants.REQUEST_PARAMETER_USERNAME, username);
-            return jsonObject;
-        } catch (JSONException e) {
-            return null;
-        }
-    }
-
-    public static JSONObject AccountIdJsonBuilder(String accountId) {
-        JSONObject jsonObject = new JSONObject();
-        try {
-            jsonObject.put(ServiceConstants.REQUEST_PARAMETER_ACCOUNT_ID, accountId);
-            return jsonObject;
-        } catch (JSONException e) {
-            return null;
-        }
-    }
-
-    public static JSONObject MessageJsonBuilder(String msg) {
-        JSONObject jsonObject = new JSONObject();
-        try {
-            jsonObject.put(ServiceConstants.REQUEST_PARAMETER_MESSAGE, msg);
+            Map<String, String> reqParams = requestParameters.getStringMap();
+            Map<String, Object> objParams = requestParameters.getObjectMap();
+            for (Map.Entry<String, String> entry : reqParams.entrySet()) {
+                jsonObject.put(entry.getKey(), entry.getValue());
+            }
+            for (Map.Entry<String, Object> entry : objParams.entrySet()) {
+                jsonObject.put(entry.getKey(), entry.getValue());
+            }
             return jsonObject;
         } catch (JSONException e) {
             return null;

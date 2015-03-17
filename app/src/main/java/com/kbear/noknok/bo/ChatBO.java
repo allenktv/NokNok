@@ -3,6 +3,7 @@ package com.kbear.noknok.bo;
 import com.kbear.noknok.service.ChatService;
 import com.kbear.noknok.service.completionhandlers.BooleanCompletionHandler;
 import com.kbear.noknok.service.completionhandlers.MessageCompletionHandler;
+import com.kbear.noknok.service.completionhandlers.StringsCompletionHandler;
 
 import javax.inject.Inject;
 
@@ -18,11 +19,23 @@ public class ChatBO {
         mChatService = chatService;
     }
 
+    //Emitters
+
     public void sendMessage(String message, BooleanCompletionHandler completionHandler) {
         mChatService.sendMessage(message, completionHandler);
     }
 
+    public void sendTyping(boolean isTyping, BooleanCompletionHandler completionHandler) {
+        mChatService.sendTyping(isTyping, completionHandler);
+    }
+
+    //Listeners
+
     public void onMessageReceived(MessageCompletionHandler completionHandler) {
         mChatService.receiveMessage(completionHandler);
+    }
+
+    public void onTypingReceived(StringsCompletionHandler completionHandler) {
+        mChatService.receiveTypingEvent(completionHandler);
     }
 }
