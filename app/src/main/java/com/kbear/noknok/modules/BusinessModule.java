@@ -5,6 +5,7 @@ import com.kbear.noknok.activities.MainActivity;
 import com.kbear.noknok.bo.AccountBO;
 import com.kbear.noknok.bo.ChatBO;
 import com.kbear.noknok.bo.SocketBO;
+import com.kbear.noknok.fragments.ChatFragment;
 import com.kbear.noknok.fragments.LoginFragment;
 import com.kbear.noknok.managers.SocketManager;
 import com.kbear.noknok.service.AccountService;
@@ -18,6 +19,7 @@ import dagger.Provides;
  */
 @Module(
         injects = {
+                ChatFragment.class,
                 LoginFragment.class,
                 MainActivity.class,
                 LauncherActivity.class

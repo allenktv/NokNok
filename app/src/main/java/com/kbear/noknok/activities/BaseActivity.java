@@ -5,7 +5,6 @@ import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.os.Bundle;
-import android.os.PersistableBundle;
 
 import com.kbear.noknok.R;
 import com.kbear.noknok.events.EventProducer;
