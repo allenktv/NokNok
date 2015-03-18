@@ -26,7 +26,7 @@ public class ChatBO {
     }
 
     public void sendTyping(boolean isTyping, BooleanCompletionHandler completionHandler) {
-        mChatService.sendTyping(isTyping, completionHandler);
+        mChatService.sendTyping(isTyping ? 1 : 0, completionHandler);
     }
 
     //Listeners

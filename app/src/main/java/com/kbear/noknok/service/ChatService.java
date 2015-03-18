@@ -1,17 +1,12 @@
 package com.kbear.noknok.service;
 
 import com.kbear.noknok.common.ServiceConstants;
-import com.kbear.noknok.dtos.CustomError;
-import com.kbear.noknok.factories.JsonFactory;
 import com.kbear.noknok.managers.SocketManager;
 import com.kbear.noknok.service.completionhandlers.BooleanCompletionHandler;
 import com.kbear.noknok.service.completionhandlers.MessageCompletionHandler;
 import com.kbear.noknok.service.completionhandlers.StringsCompletionHandler;
 import com.kbear.noknok.service.request.RequestParameters;
 import com.kbear.noknok.service.response.SocketResponseParser;
-import com.loopj.android.http.RequestParams;
-
-import org.json.JSONObject;
 
 import javax.inject.Inject;
 
@@ -21,8 +16,6 @@ import javax.inject.Inject;
 public class ChatService {
 
     private final SocketManager mSocketManager;
-
-    //TODO: add request param so no more json builder
 
     @Inject
     public ChatService(SocketManager socketManager) {
@@ -37,7 +30,7 @@ public class ChatService {
         mSocketManager.emit(ServiceConstants.CLIENT_MESSAGE, parameters, responseHandler);
     }
 
-    public void sendTyping(final boolean isTyping, final BooleanCompletionHandler completionHandler) {
+    public void sendTyping(final int isTyping, final BooleanCompletionHandler completionHandler) {
         RequestParameters parameters = new RequestParameters(
                 ServiceConstants.REQUEST_PARAMETER_IS_TYPING, isTyping
         );

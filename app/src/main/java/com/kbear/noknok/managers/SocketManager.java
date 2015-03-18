@@ -16,11 +16,6 @@ import org.json.JSONObject;
 
 import java.net.URISyntaxException;
 
-import javax.inject.Singleton;
-
-import dagger.Module;
-import dagger.Provides;
-
 /**
  * Created by allen on 3/2/15.
  */
@@ -72,7 +67,8 @@ public class SocketManager {
         });
     }
 
-    public void emitSync(String event, Object data, final IBaseResponseHandler responseHandler) {
+    public void emitSync(String event, RequestParameters requestParameters, final IBaseResponseHandler responseHandler) {
+        JSONObject data = JsonFactory.buildFromRequestParameters(requestParameters);
         mSocket.emit(event, data, new Ack() {
             @Override
             public void call(Object... args) {

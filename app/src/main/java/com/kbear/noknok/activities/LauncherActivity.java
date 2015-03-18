@@ -8,7 +8,6 @@ import android.widget.Toast;
 
 import com.kbear.noknok.R;
 import com.kbear.noknok.bo.AccountBO;
-import com.kbear.noknok.bo.SocketBO;
 import com.kbear.noknok.common.SharedPreferencesConstants;
 import com.kbear.noknok.dtos.Account;
 import com.kbear.noknok.dtos.CustomError;

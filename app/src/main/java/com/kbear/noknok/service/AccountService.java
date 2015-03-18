@@ -1,15 +1,11 @@
 package com.kbear.noknok.service;
 
 import com.kbear.noknok.common.ServiceConstants;
-import com.kbear.noknok.dtos.CustomError;
-import com.kbear.noknok.factories.JsonFactory;
 import com.kbear.noknok.managers.SocketManager;
 import com.kbear.noknok.service.completionhandlers.AccountCompletionHandler;
 import com.kbear.noknok.service.completionhandlers.BooleanCompletionHandler;
 import com.kbear.noknok.service.request.RequestParameters;
 import com.kbear.noknok.service.response.SocketResponseParser;
-
-import org.json.JSONObject;
 
 import javax.inject.Inject;
 
