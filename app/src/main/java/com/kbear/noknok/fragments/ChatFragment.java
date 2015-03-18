@@ -2,7 +2,6 @@ package com.kbear.noknok.fragments;
 
 import android.location.Location;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
@@ -44,7 +43,6 @@ public class ChatFragment extends BaseFragment {
     @InjectView(R.id.send_message) ImageButton mSendMessage;
     @InjectView(R.id.typing_textview) TextView mTypingText;
 
-    @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.chat_layout, container, false);
