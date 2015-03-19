@@ -113,31 +113,17 @@ public class ChatFragment extends BaseFragment {
 
             @Override
             public void afterTextChanged(Editable s) {
-                if (s.length() == 0) {
-                    mChatBO.sendTyping(false, new BooleanCompletionHandler() {
-                        @Override
-                        public void onSuccess(boolean success) {
+                mChatBO.sendTyping(!(s.length() == 0), new BooleanCompletionHandler() {
+                    @Override
+                    public void onSuccess(boolean success) {
 
-                        }
+                    }
 
-                        @Override
-                        public void onFailure(CustomError error) {
+                    @Override
+                    public void onFailure(CustomError error) {
 
-                        }
-                    });
-                } else {
-                    mChatBO.sendTyping(true, new BooleanCompletionHandler() {
-                        @Override
-                        public void onSuccess(boolean success) {
-
-                        }
-
-                        @Override
-                        public void onFailure(CustomError error) {
-
-                        }
-                    });
-                }
+                    }
+                });
             }
         });
 
