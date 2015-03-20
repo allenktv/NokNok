@@ -5,7 +5,7 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.telephony.TelephonyManager;
 
-import com.kbear.noknok.activities.NokNokApplication;
+import com.kbear.noknok.ui.activities.NokNokApplication;
 
 /**
  * Created by allen on 2/16/15.

@@ -1,4 +1,4 @@
-package com.kbear.noknok.activities;
+package com.kbear.noknok.ui.activities;
 
 import android.app.Activity;
 import android.app.Fragment;

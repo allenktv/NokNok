@@ -1,4 +1,4 @@
-package com.kbear.noknok.fragments;
+package com.kbear.noknok.ui.fragments;
 
 import android.location.Location;
 import android.os.Bundle;

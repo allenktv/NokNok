@@ -1,12 +1,12 @@
 package com.kbear.noknok.modules;
 
-import com.kbear.noknok.activities.LauncherActivity;
-import com.kbear.noknok.activities.MainActivity;
+import com.kbear.noknok.ui.activities.LauncherActivity;
+import com.kbear.noknok.ui.activities.MainActivity;
 import com.kbear.noknok.bo.AccountBO;
 import com.kbear.noknok.bo.ChatBO;
 import com.kbear.noknok.bo.SocketBO;
-import com.kbear.noknok.fragments.ChatFragment;
-import com.kbear.noknok.fragments.LoginFragment;
+import com.kbear.noknok.ui.fragments.ChatFragment;
+import com.kbear.noknok.ui.fragments.LoginFragment;
 import com.kbear.noknok.managers.SocketManager;
 import com.kbear.noknok.service.AccountService;
 import com.kbear.noknok.service.ChatService;

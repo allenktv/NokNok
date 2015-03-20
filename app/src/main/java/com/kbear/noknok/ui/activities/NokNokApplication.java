@@ -1,11 +1,8 @@
-package com.kbear.noknok.activities;
+package com.kbear.noknok.ui.activities;
 
 import android.app.Application;
 
-import com.kbear.noknok.managers.LocationManager;
 import com.kbear.noknok.modules.AndroidModule;
-import com.kbear.noknok.modules.BusinessModule;
-import com.kbear.noknok.modules.NetworkModule;
 import com.kbear.noknok.utils.helpers.ConnectionHelper;
 import com.kbear.noknok.utils.helpers.SharedPreferencesHelper;
 

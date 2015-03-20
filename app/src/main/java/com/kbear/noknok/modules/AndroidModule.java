@@ -6,7 +6,7 @@ package com.kbear.noknok.modules;
 
 import android.content.Context;
 
-import com.kbear.noknok.activities.NokNokApplication;
+import com.kbear.noknok.ui.activities.NokNokApplication;
 
 import javax.inject.Singleton;
 

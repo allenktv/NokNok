@@ -1,4 +1,4 @@
-package com.kbear.noknok.fragments;
+package com.kbear.noknok.ui.fragments;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -11,7 +11,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.kbear.noknok.R;
-import com.kbear.noknok.activities.MainActivity;
+import com.kbear.noknok.ui.activities.MainActivity;
 import com.kbear.noknok.bo.AccountBO;
 import com.kbear.noknok.common.SharedPreferencesConstants;
 import com.kbear.noknok.dtos.Account;

@@ -1,8 +1,8 @@
 package com.kbear.noknok.modules;
 
-import com.kbear.noknok.activities.MainActivity;
-import com.kbear.noknok.activities.NokNokApplication;
-import com.kbear.noknok.fragments.ChatFragment;
+import com.kbear.noknok.ui.activities.MainActivity;
+import com.kbear.noknok.ui.activities.NokNokApplication;
+import com.kbear.noknok.ui.fragments.ChatFragment;
 import com.kbear.noknok.managers.LocationManager;
 
 import javax.inject.Singleton;

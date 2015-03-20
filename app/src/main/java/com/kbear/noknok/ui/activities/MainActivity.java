@@ -1,10 +1,10 @@
-package com.kbear.noknok.activities;
+package com.kbear.noknok.ui.activities;
 
 import android.os.Bundle;
 
 import com.kbear.noknok.R;
 import com.kbear.noknok.bo.SocketBO;
-import com.kbear.noknok.fragments.ChatFragment;
+import com.kbear.noknok.ui.fragments.ChatFragment;
 
 import javax.inject.Inject;
 

@@ -1,4 +1,4 @@
-package com.kbear.noknok.activities;
+package com.kbear.noknok.ui.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -11,8 +11,8 @@ import com.kbear.noknok.bo.AccountBO;
 import com.kbear.noknok.common.SharedPreferencesConstants;
 import com.kbear.noknok.dtos.Account;
 import com.kbear.noknok.dtos.CustomError;
-import com.kbear.noknok.fragments.LoginFragment;
 import com.kbear.noknok.service.completionhandlers.AccountCompletionHandler;
+import com.kbear.noknok.ui.fragments.LoginFragment;
 import com.kbear.noknok.utils.helpers.SharedPreferencesHelper;
 
 import javax.inject.Inject;

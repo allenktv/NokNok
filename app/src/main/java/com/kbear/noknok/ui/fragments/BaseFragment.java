@@ -1,9 +1,9 @@
-package com.kbear.noknok.fragments;
+package com.kbear.noknok.ui.fragments;
 
 import android.app.Fragment;
 import android.os.Bundle;
 
-import com.kbear.noknok.activities.NokNokApplication;
+import com.kbear.noknok.ui.activities.NokNokApplication;
 import com.kbear.noknok.events.EventProducer;
 
 /**
