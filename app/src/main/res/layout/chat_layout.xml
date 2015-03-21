@@ -4,26 +4,38 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <DrawerLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <FrameLayout
+            android:id="@+id/content_frame"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+        <ListView
+            android:id="@+id/left_drawer"
+            android:layout_width="240dp"
+            android:layout_height="match_parent"></ListView>
+    </DrawerLayout>
+
     <ScrollView
         android:layout_margin="@dimen/abc_action_bar_default_padding_material"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" >
+        android:layout_height="wrap_content">
 
-            <LinearLayout
-                android:id="@+id/chat_view"
-                android:orientation="vertical"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-            </LinearLayout>
-        </ScrollView>
+        <LinearLayout
+            android:id="@+id/chat_view"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"></LinearLayout>
+    </ScrollView>
 
     <TextView
         android:id="@+id/typing_textview"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_above="@+id/message_box_layout"
-        android:layout_margin="@dimen/abc_action_bar_default_padding_material"
-        />
+        android:layout_margin="@dimen/abc_action_bar_default_padding_material" />
 
     <LinearLayout
         android:id="@+id/message_box_layout"
