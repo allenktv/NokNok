@@ -1,10 +1,16 @@
 package com.kbear.noknok.ui.fragments;
 
+import android.content.res.Configuration;
 import android.location.Location;
 import android.os.Bundle;
+import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
@@ -21,6 +27,8 @@ import com.kbear.noknok.managers.LocationManager;
 import com.kbear.noknok.service.completionhandlers.BooleanCompletionHandler;
 import com.kbear.noknok.service.completionhandlers.MessageCompletionHandler;
 import com.kbear.noknok.service.completionhandlers.StringsCompletionHandler;
+import com.kbear.noknok.ui.adapters.DrawerMenuAdapter;
+import com.kbear.noknok.ui.views.CustomDrawerLayout;
 import com.kbear.noknok.utils.helpers.StringHelper;
 
 import java.util.List;
@@ -42,6 +50,11 @@ public class ChatFragment extends BaseFragment {
     @InjectView(R.id.message_box) EditText mMessageBox;
     @InjectView(R.id.send_message) ImageButton mSendMessage;
     @InjectView(R.id.typing_textview) TextView mTypingText;
+
+    @InjectView(R.id.drawer_layout) CustomDrawerLayout mDrawerLayout;
+    @InjectView(R.id.drawer_list) RecyclerView mDrawerList;
+
+    private ActionBarDrawerToggle mDrawerToggle;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -127,6 +140,66 @@ public class ChatFragment extends BaseFragment {
             }
         });
 
+        DrawerMenuAdapter adapter = new DrawerMenuAdapter(new String[]{"Allen", "Keith", "Tan"});
+        mDrawerList.setAdapter(adapter);
+        mDrawerList.addOnItemTouchListener(new RecyclerView.OnItemTouchListener() {
+            @Override
+            public boolean onInterceptTouchEvent(RecyclerView recyclerView, MotionEvent motionEvent) {
+                return false;
+            }
+
+            @Override
+            public void onTouchEvent(RecyclerView recyclerView, MotionEvent motionEvent) {
+
+            }
+        });
+//        mDrawerList.setOnItemClickListener(new DrawerItemClickListener());
+        mDrawerList.setLayoutManager(new LinearLayoutManager(getActivity()));
+        mDrawerToggle = new ActionBarDrawerToggle(
+                getActivity(),
+                mDrawerLayout,
+                R.string.app_name,  /* "open drawer" description */
+                R.string.app_name /* "close drawer" description */
+        ) {
+
+            public void onDrawerClosed(View view) {
+                super.onDrawerClosed(view);
+            }
+
+            public void onDrawerOpened(View drawerView) {
+                super.onDrawerOpened(drawerView);
+            }
+        };
+
+        // Set the drawer toggle as the DrawerListener
+        mDrawerLayout.setDrawerListener(mDrawerToggle);
+//
+        getActivity().getActionBar().setDisplayHomeAsUpEnabled(true);
+        getActivity().getActionBar().setHomeButtonEnabled(true);
+
+        setHasOptionsMenu(true);
+
+        mDrawerToggle.syncState();
+
         return v;
     }
+
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+        mDrawerToggle.onConfigurationChanged(newConfig);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Pass the event to ActionBarDrawerToggle, if it returns
+        // true, then it has handled the app icon touch event
+        if (mDrawerToggle.onOptionsItemSelected(item)) {
+            return true;
+        }
+        // Handle your other action bar items...
+
+        return super.onOptionsItemSelected(item);
+    }
+
 }
