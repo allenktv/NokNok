@@ -28,6 +28,7 @@ public class LauncherActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_fragment);
 
+        //TODO: temporary account persistence
         if (SharedPreferencesHelper.getInstance().contains(SharedPreferencesConstants.ACCOUNT_ID)) {
             accountBO.getAccount(SharedPreferencesHelper.getInstance().getString(SharedPreferencesConstants.ACCOUNT_ID), new AccountCompletionHandler() {
                 @Override
